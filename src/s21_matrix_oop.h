@@ -10,29 +10,19 @@ class S21Matrix {
  public:
   /* Базовый конструктор, инициализирующий матрицу некоторой
    * заранее заданной размерностью */
-  S21Matrix() {
-    rows_ = 1;
-    cols_ = 1;
-  };
+  S21Matrix();
   /* Параметризированный конструктор с количеством строк и столбцов */
-  S21Matrix(int r, int c) {
-    rows_ = r;
-    cols_ = c;
-  };
+  S21Matrix(int r, int c);
   /* Конструктор копирования */
   S21Matrix(const S21Matrix& other);
   /* Конструктор переноса */
   S21Matrix(S21Matrix&& other);
   /* Деструктор */
-  ~S21Matrix() {
-    delete[] matrix_;
-    rows_ = 0;
-    cols_ = 0;
-  }
+  ~S21Matrix();
 
   /* геттеры для получения столбцов и колонок */
-  int GetRows() { return rows_; };
-  int GetCols() { return cols_; };
+  int GetRows();
+  int GetCols();
 
   /* Проверяет матрицы на равенство между собой */
   bool EqMatrix(const S21Matrix& other);
