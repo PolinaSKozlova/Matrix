@@ -15,3 +15,6 @@ test:
 
 clean: 
 	rm -rf s21_matrix_oop.a run s21_matrix_oop.dSYM s21_matrix_oop
+
+push:
+	git push origin develop
