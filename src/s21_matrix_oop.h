@@ -1,6 +1,8 @@
 #ifndef SRC_S21_MATRIX_OOP_H_
 #define SRC_S21_MATRIX_OOP_H_
 
+#include <iostream>
+
 class S21Matrix {
  public:
   /* Базовый конструктор, инициализирующий матрицу некоторой
@@ -40,6 +42,8 @@ class S21Matrix {
   double Determinant();
   /* Вычисляет и возвращает обратную матрицу */
   S21Matrix InverseMatrix();
+  void MemoryAllocate();
+  void ShowMatrix();
 
  private:
   // Attributes

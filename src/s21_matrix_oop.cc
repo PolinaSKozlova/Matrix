@@ -1,13 +1,24 @@
 #include "./s21_matrix_oop.h"
 
+void S21Matrix::ShowMatrix() {
+  for (int i = 0; i < rows_; i++) {
+    for (int j = 0; j < cols_; j++) {
+      std::cout << matrix_[i][j] << " ";
+    }
+    std::cout << std::endl;
+  }
+}
+
 S21Matrix::S21Matrix() {
   rows_ = 0;
   cols_ = 0;
+  //   MemoryAllocate();
 }
 
 S21Matrix::S21Matrix(int r, int c) {
   rows_ = r;
   cols_ = c;
+  MemoryAllocate();
 }
 
 S21Matrix::S21Matrix(const S21Matrix& other) {}
@@ -19,6 +30,13 @@ S21Matrix::~S21Matrix() {
   matrix_ = nullptr;
   rows_ = 0;
   cols_ = 0;
+}
+
+void S21Matrix::MemoryAllocate() {
+  this->matrix_ = new double*[rows_];
+  for (int i = 0; i < rows_; i++) {
+    this->matrix_[i] = new double[cols_];
+  }
 }
 
 int S21Matrix::GetRows() { return rows_; };
