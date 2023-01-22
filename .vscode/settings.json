@@ -2,6 +2,8 @@
     "files.associations": {
         "queue": "cpp",
         "random": "cpp",
-        "memory": "cpp"
+        "memory": "cpp",
+        "iostream": "cpp",
+        "ostream": "cpp"
     }
 }
