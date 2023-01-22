@@ -7,7 +7,7 @@ class S21Matrix {
  public:
   /* Базовый конструктор, инициализирующий матрицу некоторой
    * заранее заданной размерностью */
-  S21Matrix();
+  S21Matrix();  // = delete;
   /* Параметризированный конструктор с количеством строк и столбцов */
   S21Matrix(int r, int c);
   /* Конструктор копирования */
@@ -44,6 +44,7 @@ class S21Matrix {
   S21Matrix InverseMatrix();
   void MemoryAllocate();
   void ShowMatrix();
+  void FillMatrix();
 
  private:
   // Attributes
