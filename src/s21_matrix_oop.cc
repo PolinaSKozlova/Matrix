@@ -1,6 +1,7 @@
 #include "./s21_matrix_oop.h"
 
 #include <iostream>
+
 using namespace std;
 
 int main() {
@@ -8,6 +9,7 @@ int main() {
   //   S21Matrix m(4, 5);
   int r = m.GetRows();
   int c = m.GetCols();
-  cout << "r = " << r << "c = " << c << endl;
+  cout << "r = " << r << "\n"
+       << "c = " << c << endl;
   return 0;
 }

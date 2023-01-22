@@ -24,7 +24,11 @@ class S21Matrix {
   /* Конструктор переноса */
   S21Matrix(S21Matrix&& other);
   /* Деструктор */
-  ~S21Matrix() { delete[] matrix_; }
+  ~S21Matrix() {
+    delete[] matrix_;
+    rows_ = 0;
+    cols_ = 0;
+  }
 
   /* геттеры для получения столбцов и колонок */
   int GetRows() { return rows_; };
