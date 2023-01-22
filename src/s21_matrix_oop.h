@@ -2,11 +2,6 @@
 #define SRC_S21_MATRIX_OOP_H_
 
 class S21Matrix {
- private:
-  // Attributes
-  int rows_, cols_;  // Rows and columns
-  double** matrix_;  // Pointer to the memory where the matrix is allocated
-
  public:
   /* Базовый конструктор, инициализирующий матрицу некоторой
    * заранее заданной размерностью */
@@ -23,6 +18,8 @@ class S21Matrix {
   /* геттеры для получения столбцов и колонок */
   int GetRows();
   int GetCols();
+  void SetRows(int r);
+  void SetCols(int c);
 
   /* Проверяет матрицы на равенство между собой */
   bool EqMatrix(const S21Matrix& other);
@@ -43,6 +40,11 @@ class S21Matrix {
   double Determinant();
   /* Вычисляет и возвращает обратную матрицу */
   S21Matrix InverseMatrix();
+
+ private:
+  // Attributes
+  int rows_, cols_;  // Rows and columns
+  double** matrix_;  // Pointer to the memory where the matrix is allocated
 };
 
 #endif  // SRC_S21_MATRIX_OOP_H_
