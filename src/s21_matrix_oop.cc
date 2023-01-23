@@ -58,16 +58,9 @@ S21Matrix::S21Matrix(const S21Matrix& other) {
 
 S21Matrix::S21Matrix(S21Matrix&& other) {
   if (this != &other) {
+    this->matrix_ = other.matrix_;
     this->rows_ = other.rows_;
     this->cols_ = other.cols_;
-    MemoryAllocate();
-    for (int i = 0; i < rows_; i++) {
-      for (int j = 0; j < cols_; j++) {
-        this->matrix_[i][j] = other.matrix_[i][j];
-      }
-    }
-
-    delete[] other.matrix_;
     other.matrix_ = nullptr;
     other.cols_ = 0;
     other.rows_ = 0;
@@ -75,7 +68,7 @@ S21Matrix::S21Matrix(S21Matrix&& other) {
 }
 
 S21Matrix::~S21Matrix() {
-  // std::cout << "деструктор " << this->matrix_ << std::endl;
+  std::cout << "destructor for " << this->matrix_ << std::endl;
   delete[] matrix_;
   matrix_ = nullptr;
   rows_ = 0;
