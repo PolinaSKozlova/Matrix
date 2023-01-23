@@ -3,6 +3,8 @@
 
 #include <iostream>
 
+enum STATUS { OK, ERROR };
+
 class S21Matrix {
  public:
   /* Базовый конструктор, инициализирующий матрицу некоторой
@@ -49,10 +51,14 @@ class S21Matrix {
   void FillMatrix1();
   /************************************************/
 
-  S21Matrix& operator=(const S21Matrix& other);
+  S21Matrix& operator=(
+      const S21Matrix&
+          other) noexcept; /*Этот спецификатор указывает, что наша функция
+                              (конструктор переноса) не генерирует (не
+                              выбрасывает) исключение или аварийно завершает
+                              свою работу. */
 
  private:
-  // Attributes
   int rows_, cols_;  // Rows and columns
   double** matrix_;  // Pointer to the memory where the matrix is allocated
 };
