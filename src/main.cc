@@ -3,29 +3,21 @@
 using namespace std;
 
 int main() {
-  S21Matrix m(4, 7);
-  S21Matrix m1(0, 0);
-  int r = m.GetRows();
-  int c = m.GetCols();
-  //   cout << "r = " << r << "\n"
-  //        << "c = " << c << endl;
-  //   m.SetRows(8);
-  //   m.SetCols(5);
-  //   r = m.GetRows();
-  //   c = m.GetCols();
-  //   m.MemoryAllocate();
-  cout << "r = " << r << "\n"
-       << "c = " << c << endl;
-  //   m.ShowMatrix();
-  //   r = m2.GetRows();
-  //   c = m2.GetCols();
-  //   cout << "r = " << r << "\n"
-  //        << "c = " << c << endl;
-  //   m2.MemoryAllocate();
+  S21Matrix m(3, 5);
+  S21Matrix m1(5, 8);
+  // m1.ShowMatrix();
   m.FillMatrix();
+  // m1.FillMatrix();
+  m1.FillMatrix1();
+  cout << "m1" << endl;
+  m1.ShowMatrix();
+  cout << "m" << endl;
   m.ShowMatrix();
-  S21Matrix m2(m);
-  cout << endl;
-  m2.ShowMatrix();
+  m1 = m;
+  // S21Matrix m1(std::move(m));
+  cout << "m1 = m" << endl;
+  m1.ShowMatrix();
+  // cout << "m" << endl;
+  // m.ShowMatrix();
   return 0;
 }
