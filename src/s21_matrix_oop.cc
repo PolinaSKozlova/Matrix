@@ -82,6 +82,18 @@ void S21Matrix::MemoryAllocate() {
   }
 }
 
+int S21Matrix::CheckMatrix() {
+  return (this->rows_ <= 0 || this->cols_ <= 0 || this->matrix_ == nullptr)
+             ? ERROR
+             : OK;
+}
+
+int S21Matrix::CheckMatrix(const S21Matrix& other) {
+  return (other.rows_ <= 0 || other.cols_ <= 0 || other.matrix_ == nullptr)
+             ? ERROR
+             : OK;
+}
+
 int S21Matrix::GetRows() { return this->rows_; };
 
 int S21Matrix::GetCols() { return this->cols_; }
@@ -89,6 +101,36 @@ int S21Matrix::GetCols() { return this->cols_; }
 void S21Matrix::SetRows(int r) { this->rows_ = r; }
 
 void S21Matrix::SetCols(int c) { this->cols_ = c; }
+
+bool S21Matrix::EqMatrix(const S21Matrix& other) noexcept {
+  int status_code = OK;
+  if (this->rows_ == other.rows_ && this->cols_ == other.cols_) {
+    for (int i = 0; i < this->rows_ && !status_code; i++) {
+      for (int j = 0; j < this->cols_ && !status_code; j++) {
+        if (this->matrix_[i][j] != other.matrix_[i][j]) {
+          status_code = ERROR;
+        }
+      }
+    }
+  } else {
+    status_code = ERROR;
+  }
+  return status_code;
+}
+
+void S21Matrix::SumMatrix(const S21Matrix& other) {
+  if (this->CheckMatrix() || CheckMatrix(other)) {
+  } else {
+    if (this->rows_ == other.rows_ && this->cols_ == other.cols_) {
+      for (int i = 0; i < this->rows_; i++) {
+        for (int j = 0; j < this->cols_; j++) {
+          this->matrix_[i][j] = this->matrix_[i][j] + other.matrix_[i][j];
+        }
+      }
+    } else {
+    }
+  }
+}
 
 S21Matrix& S21Matrix::operator=(const S21Matrix& other) noexcept {
   this->rows_ = other.rows_;
@@ -105,12 +147,28 @@ S21Matrix& S21Matrix::operator=(const S21Matrix& other) noexcept {
   return *this;
 }
 
-bool S21Matrix::EqMatrix(const S21Matrix& other) {
+bool S21Matrix::operator==(const S21Matrix& other) noexcept {
   int status_code = OK;
   if (this->rows_ == other.rows_ && this->cols_ == other.cols_) {
-    for (int i = 0; i < this->rows_, !status_code; i++) {
-      for (int j = 0; j < this->cols_, !status_code; j++) {
+    for (int i = 0; i < this->rows_ && !status_code; i++) {
+      for (int j = 0; j < this->cols_ && !status_code; j++) {
         if (this->matrix_[i][j] != other.matrix_[i][j]) {
+          status_code = ERROR;
+        }
+      }
+    }
+  } else {
+    status_code = ERROR;
+  }
+  return status_code;
+}
+
+bool S21Matrix::operator!=(const S21Matrix& other) noexcept {
+  int status_code = OK;
+  if (this->rows_ == other.rows_ && this->cols_ == other.cols_) {
+    for (int i = 0; i < this->rows_ && !status_code; i++) {
+      for (int j = 0; j < this->cols_ && !status_code; j++) {
+        if (this->matrix_[i][j] == other.matrix_[i][j]) {
           status_code = ERROR;
         }
       }

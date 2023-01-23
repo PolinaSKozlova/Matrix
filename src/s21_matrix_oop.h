@@ -26,7 +26,7 @@ class S21Matrix {
   void SetCols(int c);
 
   /* Проверяет матрицы на равенство между собой */
-  bool EqMatrix(const S21Matrix& other);
+  bool EqMatrix(const S21Matrix& other) noexcept;
   /* Прибавляет вторую матрицы к текущей */
   void SumMatrix(const S21Matrix& other);
   /* Вычитает из текущей матрицы другую */
@@ -45,6 +45,8 @@ class S21Matrix {
   /* Вычисляет и возвращает обратную матрицу */
   S21Matrix InverseMatrix();
   void MemoryAllocate();
+  int CheckMatrix();
+  int CheckMatrix(const S21Matrix& other);
   /************************************************/
   void ShowMatrix();
   void FillMatrix();
@@ -57,6 +59,8 @@ class S21Matrix {
                               (конструктор переноса) не генерирует (не
                               выбрасывает) исключение или аварийно завершает
                               свою работу. */
+  bool operator==(const S21Matrix& other) noexcept;
+  bool operator!=(const S21Matrix& other) noexcept;
 
  private:
   int rows_, cols_;  // Rows and columns
