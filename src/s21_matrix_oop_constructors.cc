@@ -7,7 +7,7 @@ S21Matrix::S21Matrix() {
 }
 
 S21Matrix::S21Matrix(int r, int c) {
-  if (r > 0 || c > 0) {
+  if (r > 0 && c > 0) {
     rows_ = r;
     cols_ = c;
     MemoryAllocate();
