@@ -43,8 +43,13 @@ class S21Matrix {
   /* Вычисляет и возвращает обратную матрицу */
   S21Matrix InverseMatrix();
   void MemoryAllocate();
+  /************************************************/
   void ShowMatrix();
   void FillMatrix();
+  void FillMatrix1();
+  /************************************************/
+
+  S21Matrix& operator=(const S21Matrix& other);
 
  private:
   // Attributes

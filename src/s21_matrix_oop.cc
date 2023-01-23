@@ -1,5 +1,7 @@
 #include "./s21_matrix_oop.h"
 
+/************************************************/
+
 void S21Matrix::ShowMatrix() {
   for (int i = 0; i < rows_; i++) {
     for (int j = 0; j < cols_; j++) {
@@ -7,15 +9,25 @@ void S21Matrix::ShowMatrix() {
     }
     std::cout << std::endl;
   }
+  std::cout << "call function ShowMatrix " << this->matrix_ << std::endl;
 }
 
 void S21Matrix::FillMatrix() {
+  for (int i = 0; i < rows_; i++) {
+    for (int j = 0; j < cols_; j++) {
+      this->matrix_[i][j] = 1 + i * j;
+    }
+  }
+}
+
+void S21Matrix::FillMatrix1() {
   for (int i = 0; i < rows_; i++) {
     for (int j = 0; j < cols_; j++) {
       this->matrix_[i][j] = i + j;
     }
   }
 }
+/************************************************/
 
 S21Matrix::S21Matrix() {
   rows_ = 0;
@@ -44,9 +56,26 @@ S21Matrix::S21Matrix(const S21Matrix& other) {
   }
 }
 
-S21Matrix::S21Matrix(S21Matrix&& other) {}
+S21Matrix::S21Matrix(S21Matrix&& other) {
+  if (this != &other) {
+    this->rows_ = other.rows_;
+    this->cols_ = other.cols_;
+    MemoryAllocate();
+    for (int i = 0; i < rows_; i++) {
+      for (int j = 0; j < cols_; j++) {
+        this->matrix_[i][j] = other.matrix_[i][j];
+      }
+    }
+
+    delete[] other.matrix_;
+    other.matrix_ = nullptr;
+    other.cols_ = 0;
+    other.rows_ = 0;
+  }
+}
 
 S21Matrix::~S21Matrix() {
+  // std::cout << "деструктор " << this->matrix_ << std::endl;
   delete[] matrix_;
   matrix_ = nullptr;
   rows_ = 0;
@@ -60,34 +89,27 @@ void S21Matrix::MemoryAllocate() {
   }
 }
 
-int S21Matrix::GetRows() { return rows_; };
+int S21Matrix::GetRows() { return this->rows_; };
 
-int S21Matrix::GetCols() { return cols_; }
+int S21Matrix::GetCols() { return this->cols_; }
 
-void S21Matrix::SetRows(int r) {
-  if (r > 0) {
-    //   if (rows_ < r) {
-    //     rows_ = r;
-    //     MemoryAllocate();
-    //   } else if (rows_ = r) {
-    //   } else {
-    //     rows_ = r;
-    //     MemoryAllocate();
-    //   }
-    rows_ = r;
-  } else {
+void S21Matrix::SetRows(int r) { this->rows_ = r; }
+
+void S21Matrix::SetCols(int c) { this->cols_ = c; }
+
+S21Matrix& S21Matrix::operator=(const S21Matrix& other) {
+  this->rows_ = other.rows_;
+  this->cols_ = other.cols_;
+  if (this->matrix_ != nullptr) {
+    delete[] this->matrix_;
+    std::cout << "rows = " << this->rows_ << " cols = " << this->cols_
+              << std::endl;
   }
-}
-
-void S21Matrix::SetCols(int c) {
-  if (c > 0) {
-    cols_ = c;
-    //   if (cols_ < r) {
-    //     cols_ = r;
-    //   } else if (cols_ = r) {
-    //   } else {
-    //     cols_ = r;
-    //   }
-  } else {
+  MemoryAllocate();
+  for (int i = 0; i < other.rows_; i++) {
+    for (int j = 0; j < other.cols_; j++) {
+      this->matrix_[i][j] = other.matrix_[i][j];
+    }
   }
+  return *this;
 }
