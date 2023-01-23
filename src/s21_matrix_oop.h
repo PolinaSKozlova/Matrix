@@ -60,7 +60,7 @@ class S21Matrix {
                               выбрасывает) исключение или аварийно завершает
                               свою работу. */
   bool operator==(const S21Matrix& other) noexcept;
-  bool operator!=(const S21Matrix& other) noexcept;
+  S21Matrix& operator+(const S21Matrix& other);
 
  private:
   int rows_, cols_;  // Rows and columns
