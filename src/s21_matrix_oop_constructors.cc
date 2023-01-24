@@ -39,7 +39,9 @@ S21Matrix::S21Matrix(S21Matrix&& other) {
 }
 
 S21Matrix::~S21Matrix() {
-  std::cout << "destructor for " << this->matrix_ << std::endl;
+  for (int i = 0; i < this->rows_; i++) {
+    delete[] matrix_[i];
+  }
   delete[] matrix_;
   matrix_ = nullptr;
   rows_ = 0;
