@@ -29,4 +29,21 @@ S21Matrix S21Matrix::Transpose() {
 
 // double S21Matrix::Determinant(){}
 
-// S21Matrix S21Matrix::InverseMatrix() {}
+// S21Matrix S21Matrix::InverseMatrix() {
+//   S21Matrix tmp(this->rows_, this->cols_);
+//   if (!(this->CheckMatrix())) {
+//     double dtrm = 0;
+//     dtrm = this->Determinant();
+//     if (this->rows_ == this->cols_ && dtrm != 0) {
+//       if (this->rows_ == 1) {
+//         tmp.matrix_[0][0] = 1. / dtrm;
+//       } else {
+//         this->CalcComplements();
+//         this->Transpose();
+//         this->MulNumber(1. / dtrm);
+//       }
+//     }
+//   } else {
+//   }
+//   return tmp;
+// }

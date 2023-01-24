@@ -3,7 +3,7 @@
 void S21Matrix::MemoryAllocate() {
   this->matrix_ = new double*[rows_];
   for (int i = 0; i < rows_; i++) {
-    this->matrix_[i] = new double[cols_];
+    this->matrix_[i] = new double[cols_]{};
   }
 }
 
