@@ -27,4 +27,6 @@ S21Matrix S21Matrix::Transpose() {
 
 // S21Matrix S21Matrix::CalcComplements() {}
 
+// double S21Matrix::Determinant(){}
+
 // S21Matrix S21Matrix::InverseMatrix() {}

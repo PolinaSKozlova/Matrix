@@ -9,12 +9,10 @@ S21Matrix S21Matrix::operator+(const S21Matrix& other) {
           tmp.matrix_[i][j] = this->matrix_[i][j] + other.matrix_[i][j];
         }
       }
-
     } else {
     }
   } else {
   }
-
   return tmp;
 }
 
@@ -27,12 +25,10 @@ S21Matrix S21Matrix::operator-(const S21Matrix& other) {
           tmp.matrix_[i][j] = this->matrix_[i][j] - other.matrix_[i][j];
         }
       }
-
     } else {
     }
   } else {
   }
-
   return tmp;
 }
 
@@ -47,12 +43,10 @@ S21Matrix S21Matrix::operator*(const S21Matrix& other) {
           }
         }
       }
-
     } else {
     }
   } else {
   }
-
   return tmp;
 }
 
@@ -156,13 +150,11 @@ S21Matrix& S21Matrix::operator*=(const S21Matrix& other) {
 
 S21Matrix& S21Matrix::operator*=(const double num) {
   if (!(this->CheckMatrix())) {
-    // S21Matrix tmp(this->rows_, this->cols_);
     for (int i = 0; i < this->rows_; i++) {
       for (int j = 0; j < this->cols_; j++) {
         this->matrix_[i][j] *= num;
       }
     }
-    // *this = tmp;
   } else {
   }
   return *this;
