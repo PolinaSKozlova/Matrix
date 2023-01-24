@@ -67,7 +67,7 @@ class S21Matrix {
   S21Matrix& operator+=(const S21Matrix& other);
   S21Matrix& operator-=(const S21Matrix& other);
   S21Matrix& operator*=(const S21Matrix& other);
-  double& operator[](int i);
+  double& operator()(const int i, const int j);
 
  private:
   int rows_, cols_;  // Rows and columns

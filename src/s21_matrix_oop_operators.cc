@@ -157,4 +157,6 @@ S21Matrix& S21Matrix::operator*=(const S21Matrix& other) {
   return *this;
 }
 
-// double& operator[](int i) {}
+double& S21Matrix::operator()(const int i, const int j) {
+  return this->matrix_[i][j];
+}
