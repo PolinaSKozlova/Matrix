@@ -56,23 +56,20 @@ S21Matrix S21Matrix::operator*(const S21Matrix& other) {
   return tmp;
 }
 
-// S21Matrix S21Matrix::operator*(double num) {
-//   S21Matrix tmp(this->rows_, this->cols_);
-//   if (!(this->CheckMatrix())) {
-//     if (this->rows_ == other.rows_ && this->cols_ == other.cols_) {
-//       for (int i = 0; i < this->rows_; i++) {
-//         for (int j = 0; j < this->cols_; j++) {
-//           tmp.matrix_[i][j] = this->matrix_[i][j] - other.matrix_[i][j];
-//         }
-//       }
+S21Matrix S21Matrix::operator*(const double num) {
+  S21Matrix tmp(this->rows_, this->cols_);
+  if (!(this->CheckMatrix())) {
+    for (int i = 0; i < this->rows_; i++) {
+      for (int j = 0; j < this->cols_; j++) {
+        tmp.matrix_[i][j] = this->matrix_[i][j] * num;
+      }
+    }
 
-//     } else {
-//     }
-//   } else {
-//   }
+  } else {
+  }
 
-//   return tmp;
-// }
+  return tmp;
+}
 
 bool S21Matrix::operator==(const S21Matrix& other) noexcept {
   int status_code = OK;
@@ -152,6 +149,20 @@ S21Matrix& S21Matrix::operator*=(const S21Matrix& other) {
       *this = tmp;
     } else {
     }
+  } else {
+  }
+  return *this;
+}
+
+S21Matrix& S21Matrix::operator*=(const double num) {
+  if (!(this->CheckMatrix())) {
+    // S21Matrix tmp(this->rows_, this->cols_);
+    for (int i = 0; i < this->rows_; i++) {
+      for (int j = 0; j < this->cols_; j++) {
+        this->matrix_[i][j] *= num;
+      }
+    }
+    // *this = tmp;
   } else {
   }
   return *this;
