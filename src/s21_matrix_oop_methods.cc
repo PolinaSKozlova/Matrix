@@ -43,7 +43,29 @@ S21Matrix S21Matrix::Transpose() noexcept {
 
 // S21Matrix S21Matrix::CalcComplements() {}
 
-// double S21Matrix::Determinant(){}
+double S21Matrix::Determinant() {
+  double dtrm = 0;
+  if (!(this->IsSquare())) {
+    if (this->rows_ == 1) {
+      dtrm = this->matrix_[0][0];
+    } else {
+      dtrm = this->CountDeterm();
+    }
+  } else {
+    throw std::runtime_error("Matrix is not square");
+  }
+  return dtrm;
+}
+
+double S21Matrix::CountDeterm() {
+  double dtrm = 0;
+  return dtrm;
+}
+
+double S21Matrix::DefineDeterminant() {
+  return (this->matrix_[0][0] * this->matrix_[1][1] -
+          this->matrix_[0][1] * this->matrix_[1][0]);
+}
 
 // S21Matrix S21Matrix::InverseMatrix() {
 //   S21Matrix tmp(this->rows_, this->cols_);

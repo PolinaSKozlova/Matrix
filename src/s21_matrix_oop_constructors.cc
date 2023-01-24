@@ -90,3 +90,5 @@ void S21Matrix::MemoryAllocate() {
     this->matrix_[i] = new double[cols_]{};
   }
 }
+
+int S21Matrix::IsSquare() { return (this->rows_ == this->cols_) ? OK : ERROR; }
