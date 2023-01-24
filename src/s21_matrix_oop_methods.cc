@@ -4,13 +4,37 @@ bool S21Matrix::EqMatrix(const S21Matrix& other) noexcept {
   return (*this == other) ? OK : ERROR;
 }
 
-void S21Matrix::SumMatrix(const S21Matrix& other) { *this += other; }
+void S21Matrix::SumMatrix(const S21Matrix& other) {
+  try {
+    *this += other;
+  } catch (std::exception& ex) {
+    std::cout << ex.what() << std::endl;
+  }
+}
 
-void S21Matrix::SubMatrix(const S21Matrix& other) { *this -= other; }
+void S21Matrix::SubMatrix(const S21Matrix& other) {
+  try {
+    *this -= other;
+  } catch (std::exception& ex) {
+    std::cout << ex.what() << std::endl;
+  }
+}
 
-void S21Matrix::MulNumber(const double num) { *this *= num; }
+void S21Matrix::MulNumber(const double num) {
+  try {
+    *this *= num;
+  } catch (std::exception& ex) {
+    std::cout << ex.what() << std::endl;
+  }
+}
 
-void S21Matrix::MulMatrix(const S21Matrix& other) { *this *= other; }
+void S21Matrix::MulMatrix(const S21Matrix& other) {
+  try {
+    *this *= other;
+  } catch (std::exception& ex) {
+    std::cout << ex.what() << std::endl;
+  }
+}
 
 S21Matrix S21Matrix::Transpose() {
   if (!(this->CheckMatrix())) {
@@ -21,8 +45,10 @@ S21Matrix S21Matrix::Transpose() {
       }
     }
     *this = tmp;
+    return *this;
+  } else {
+    throw std::bad_exception();
   }
-  return *this;
 }
 
 // S21Matrix S21Matrix::CalcComplements() {}
@@ -42,8 +68,11 @@ S21Matrix S21Matrix::Transpose() {
 //         this->Transpose();
 //         this->MulNumber(1. / dtrm);
 //       }
+//     } else {
+//       throw std::bad_exception();
 //     }
 //   } else {
+//     throw std::bad_exception();
 //   }
 //   return tmp;
 // }

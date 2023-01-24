@@ -10,8 +10,10 @@ S21Matrix S21Matrix::operator+(const S21Matrix& other) {
         }
       }
     } else {
+      throw std::bad_exception();
     }
   } else {
+    throw std::bad_exception();
   }
   return tmp;
 }
@@ -26,8 +28,10 @@ S21Matrix S21Matrix::operator-(const S21Matrix& other) {
         }
       }
     } else {
+      throw std::bad_exception();
     }
   } else {
+    throw std::bad_exception();
   }
   return tmp;
 }
@@ -44,8 +48,10 @@ S21Matrix S21Matrix::operator*(const S21Matrix& other) {
         }
       }
     } else {
+      throw std::bad_exception();
     }
   } else {
+    throw std::bad_exception();
   }
   return tmp;
 }
@@ -58,10 +64,9 @@ S21Matrix S21Matrix::operator*(const double& num) {
         tmp.matrix_[i][j] = this->matrix_[i][j] * num;
       }
     }
-
   } else {
+    throw std::bad_exception();
   }
-
   return tmp;
 }
 
@@ -104,10 +109,11 @@ S21Matrix& S21Matrix::operator+=(const S21Matrix& other) {
           this->matrix_[i][j] += other.matrix_[i][j];
         }
       }
-
     } else {
+      throw std::bad_exception();
     }
   } else {
+    throw std::bad_exception();
   }
   return *this;
 }
@@ -120,12 +126,12 @@ S21Matrix& S21Matrix::operator-=(const S21Matrix& other) {
           this->matrix_[i][j] -= other.matrix_[i][j];
         }
       }
-
     } else {
+      throw std::bad_exception();
     }
   } else {
+    throw std::bad_exception();
   }
-
   return *this;
 }
 
@@ -142,8 +148,10 @@ S21Matrix& S21Matrix::operator*=(const S21Matrix& other) {
       }
       *this = tmp;
     } else {
+      throw std::bad_exception();
     }
   } else {
+    throw std::bad_exception();
   }
   return *this;
 }
@@ -156,10 +164,15 @@ S21Matrix& S21Matrix::operator*=(const double& num) {
       }
     }
   } else {
+    throw std::bad_exception();
   }
   return *this;
 }
 
 double& S21Matrix::operator()(const int i, const int j) {
-  return this->matrix_[i][j];
+  if (i > this->rows_ || i < 0 || j > this->cols_ || j < 0) {
+    throw std::bad_exception();
+  } else {
+    return this->matrix_[i][j];
+  }
 }

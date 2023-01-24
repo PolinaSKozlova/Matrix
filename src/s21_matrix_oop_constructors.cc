@@ -12,7 +12,7 @@ S21Matrix::S21Matrix(int r, int c) {
     cols_ = c;
     MemoryAllocate();
   } else {
-    std::cout << "error" << std::endl;
+    throw std::bad_exception();
   }
 }
 
@@ -54,7 +54,6 @@ int S21Matrix::GetCols() { return this->cols_; }
 
 void S21Matrix::SetRows(const int& r) {
   if (r > 0) {
-    std::cout << "SetRows min " << std::min(this->rows_, r) << std::endl;
     S21Matrix tmp(r, this->cols_);
     for (int i = 0; i < std::min(this->rows_, r); i++) {
       for (int j = 0; j < tmp.cols_; j++) {
@@ -64,13 +63,13 @@ void S21Matrix::SetRows(const int& r) {
     *this = tmp;
     this->rows_ = r;
   } else {
+    throw std::bad_exception();
   }
 }
 
 void S21Matrix::SetCols(const int& c) {
   if (c > 0) {
     S21Matrix tmp(this->rows_, c);
-    std::cout << "SetCols min " << std::min(this->cols_, c) << std::endl;
     for (int i = 0; i < this->rows_; i++) {
       for (int j = 0; j < std::min(this->cols_, c); j++) {
         if (j < this->cols_) {
@@ -81,5 +80,6 @@ void S21Matrix::SetCols(const int& c) {
     *this = tmp;
     this->cols_ = c;
   } else {
+    throw std::bad_exception();
   }
 }
