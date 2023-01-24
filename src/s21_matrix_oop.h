@@ -22,8 +22,8 @@ class S21Matrix {
   /* геттеры для получения столбцов и колонок */
   int GetRows();
   int GetCols();
-  void SetRows(int r);
-  void SetCols(int c);
+  void SetRows(const int& r);
+  void SetCols(const int& c);
 
   /* Проверяет матрицы на равенство между собой */
   bool EqMatrix(const S21Matrix& other) noexcept;
