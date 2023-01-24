@@ -2,7 +2,7 @@
 CC = g++ 
 FLAGS = -Wall -Wextra -Werror -std=c++17
 SRCS = $(wildcard s21*.cc)
-OBJ_FILES = $(patsubst %.cc,$(SRCS))
+OBJ_FILES = $(patsubst %.cc,%.o,$(SRCS))
 GCOV_FLAGS = -fprofile-arcs -ftest-coverage
 THIS_FILE := $(lastword $(MAKEFILE_LIST))
 REPORT = @mkdir -p report
