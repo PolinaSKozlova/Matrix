@@ -2,15 +2,11 @@
 
 S21Matrix S21Matrix::operator+(const S21Matrix& other) {
   S21Matrix tmp(this->rows_, this->cols_);
-  if (!(this->CheckMatrix()) || !CheckMatrix(other)) {
-    if (this->rows_ == other.rows_ && this->cols_ == other.cols_) {
-      for (int i = 0; i < this->rows_; i++) {
-        for (int j = 0; j < this->cols_; j++) {
-          tmp.matrix_[i][j] = this->matrix_[i][j] + other.matrix_[i][j];
-        }
+  if (this->rows_ == other.rows_ && this->cols_ == other.cols_) {
+    for (int i = 0; i < this->rows_; i++) {
+      for (int j = 0; j < this->cols_; j++) {
+        tmp.matrix_[i][j] = this->matrix_[i][j] + other.matrix_[i][j];
       }
-    } else {
-      throw std::bad_exception();
     }
   } else {
     throw std::bad_exception();
@@ -20,15 +16,11 @@ S21Matrix S21Matrix::operator+(const S21Matrix& other) {
 
 S21Matrix S21Matrix::operator-(const S21Matrix& other) {
   S21Matrix tmp(this->rows_, this->cols_);
-  if (!(this->CheckMatrix()) || !CheckMatrix(other)) {
-    if (this->rows_ == other.rows_ && this->cols_ == other.cols_) {
-      for (int i = 0; i < this->rows_; i++) {
-        for (int j = 0; j < this->cols_; j++) {
-          tmp.matrix_[i][j] = this->matrix_[i][j] - other.matrix_[i][j];
-        }
+  if (this->rows_ == other.rows_ && this->cols_ == other.cols_) {
+    for (int i = 0; i < this->rows_; i++) {
+      for (int j = 0; j < this->cols_; j++) {
+        tmp.matrix_[i][j] = this->matrix_[i][j] - other.matrix_[i][j];
       }
-    } else {
-      throw std::bad_exception();
     }
   } else {
     throw std::bad_exception();
@@ -38,17 +30,13 @@ S21Matrix S21Matrix::operator-(const S21Matrix& other) {
 
 S21Matrix S21Matrix::operator*(const S21Matrix& other) {
   S21Matrix tmp(this->rows_, other.cols_);
-  if (!(this->CheckMatrix()) || !CheckMatrix(other)) {
-    if (this->cols_ == other.rows_) {
-      for (int i = 0; i < tmp.rows_; i++) {
-        for (int j = 0; j < tmp.cols_; j++) {
-          for (int k = 0; k < this->cols_; k++) {
-            tmp.matrix_[i][j] += this->matrix_[i][k] * other.matrix_[k][j];
-          }
+  if (this->cols_ == other.rows_) {
+    for (int i = 0; i < tmp.rows_; i++) {
+      for (int j = 0; j < tmp.cols_; j++) {
+        for (int k = 0; k < this->cols_; k++) {
+          tmp.matrix_[i][j] += this->matrix_[i][k] * other.matrix_[k][j];
         }
       }
-    } else {
-      throw std::bad_exception();
     }
   } else {
     throw std::bad_exception();
@@ -58,14 +46,10 @@ S21Matrix S21Matrix::operator*(const S21Matrix& other) {
 
 S21Matrix S21Matrix::operator*(const double& num) {
   S21Matrix tmp(this->rows_, this->cols_);
-  if (!(this->CheckMatrix())) {
-    for (int i = 0; i < this->rows_; i++) {
-      for (int j = 0; j < this->cols_; j++) {
-        tmp.matrix_[i][j] = this->matrix_[i][j] * num;
-      }
+  for (int i = 0; i < this->rows_; i++) {
+    for (int j = 0; j < this->cols_; j++) {
+      tmp.matrix_[i][j] = this->matrix_[i][j] * num;
     }
-  } else {
-    throw std::bad_exception();
   }
   return tmp;
 }
@@ -102,15 +86,11 @@ S21Matrix& S21Matrix::operator=(const S21Matrix& other) noexcept {
 }
 
 S21Matrix& S21Matrix::operator+=(const S21Matrix& other) {
-  if (!(this->CheckMatrix()) || !CheckMatrix(other)) {
-    if (this->rows_ == other.rows_ && this->cols_ == other.cols_) {
-      for (int i = 0; i < this->rows_; i++) {
-        for (int j = 0; j < this->cols_; j++) {
-          this->matrix_[i][j] += other.matrix_[i][j];
-        }
+  if (this->rows_ == other.rows_ && this->cols_ == other.cols_) {
+    for (int i = 0; i < this->rows_; i++) {
+      for (int j = 0; j < this->cols_; j++) {
+        this->matrix_[i][j] += other.matrix_[i][j];
       }
-    } else {
-      throw std::bad_exception();
     }
   } else {
     throw std::bad_exception();
@@ -119,15 +99,11 @@ S21Matrix& S21Matrix::operator+=(const S21Matrix& other) {
 }
 
 S21Matrix& S21Matrix::operator-=(const S21Matrix& other) {
-  if (!(this->CheckMatrix()) || !CheckMatrix(other)) {
-    if (this->rows_ == other.rows_ && this->cols_ == other.cols_) {
-      for (int i = 0; i < this->rows_; i++) {
-        for (int j = 0; j < this->cols_; j++) {
-          this->matrix_[i][j] -= other.matrix_[i][j];
-        }
+  if (this->rows_ == other.rows_ && this->cols_ == other.cols_) {
+    for (int i = 0; i < this->rows_; i++) {
+      for (int j = 0; j < this->cols_; j++) {
+        this->matrix_[i][j] -= other.matrix_[i][j];
       }
-    } else {
-      throw std::bad_exception();
     }
   } else {
     throw std::bad_exception();
@@ -136,20 +112,16 @@ S21Matrix& S21Matrix::operator-=(const S21Matrix& other) {
 }
 
 S21Matrix& S21Matrix::operator*=(const S21Matrix& other) {
-  if (!(this->CheckMatrix()) || !CheckMatrix(other)) {
+  if (this->cols_ == other.rows_) {
     S21Matrix tmp(this->rows_, other.cols_);
-    if (this->cols_ == other.rows_) {
-      for (int i = 0; i < tmp.rows_; i++) {
-        for (int j = 0; j < tmp.cols_; j++) {
-          for (int k = 0; k < this->cols_; k++) {
-            tmp.matrix_[i][j] += this->matrix_[i][k] * other.matrix_[k][j];
-          }
+    for (int i = 0; i < tmp.rows_; i++) {
+      for (int j = 0; j < tmp.cols_; j++) {
+        for (int k = 0; k < this->cols_; k++) {
+          tmp.matrix_[i][j] += this->matrix_[i][k] * other.matrix_[k][j];
         }
       }
-      *this = tmp;
-    } else {
-      throw std::bad_exception();
     }
+    *this = tmp;
   } else {
     throw std::bad_exception();
   }
@@ -157,19 +129,15 @@ S21Matrix& S21Matrix::operator*=(const S21Matrix& other) {
 }
 
 S21Matrix& S21Matrix::operator*=(const double& num) {
-  if (!(this->CheckMatrix())) {
-    for (int i = 0; i < this->rows_; i++) {
-      for (int j = 0; j < this->cols_; j++) {
-        this->matrix_[i][j] *= num;
-      }
+  for (int i = 0; i < this->rows_; i++) {
+    for (int j = 0; j < this->cols_; j++) {
+      this->matrix_[i][j] *= num;
     }
-  } else {
-    throw std::bad_exception();
   }
   return *this;
 }
 
-double& S21Matrix::operator()(const int i, const int j) {
+double& S21Matrix::operator()(const int& i, const int& j) {
   if (i > this->rows_ || i < 0 || j > this->cols_ || j < 0) {
     throw std::bad_exception();
   } else {

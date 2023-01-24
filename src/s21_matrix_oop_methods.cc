@@ -20,13 +20,7 @@ void S21Matrix::SubMatrix(const S21Matrix& other) {
   }
 }
 
-void S21Matrix::MulNumber(const double num) {
-  try {
-    *this *= num;
-  } catch (std::exception& ex) {
-    std::cout << ex.what() << std::endl;
-  }
-}
+void S21Matrix::MulNumber(const double& num) { *this *= num; }
 
 void S21Matrix::MulMatrix(const S21Matrix& other) {
   try {

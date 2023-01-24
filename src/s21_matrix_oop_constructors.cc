@@ -83,3 +83,10 @@ void S21Matrix::SetCols(const int& c) {
     throw std::bad_exception();
   }
 }
+
+void S21Matrix::MemoryAllocate() {
+  this->matrix_ = new double*[rows_];
+  for (int i = 0; i < rows_; i++) {
+    this->matrix_[i] = new double[cols_]{};
+  }
+}
