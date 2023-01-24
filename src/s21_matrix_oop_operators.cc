@@ -9,7 +9,7 @@ S21Matrix S21Matrix::operator+(const S21Matrix& other) {
       }
     }
   } else {
-    throw std::bad_exception();
+    throw std::runtime_error("Different size of matrices");
   }
   return tmp;
 }
@@ -23,7 +23,7 @@ S21Matrix S21Matrix::operator-(const S21Matrix& other) {
       }
     }
   } else {
-    throw std::bad_exception();
+    throw std::runtime_error("Different size of matrices");
   }
   return tmp;
 }
@@ -39,12 +39,13 @@ S21Matrix S21Matrix::operator*(const S21Matrix& other) {
       }
     }
   } else {
-    throw std::bad_exception();
+    throw std::runtime_error(
+        "The rows of first matrix are not equal to the cols of second matrix");
   }
   return tmp;
 }
 
-S21Matrix S21Matrix::operator*(const double& num) {
+S21Matrix S21Matrix::operator*(const double& num) noexcept {
   S21Matrix tmp(this->rows_, this->cols_);
   for (int i = 0; i < this->rows_; i++) {
     for (int j = 0; j < this->cols_; j++) {
@@ -93,7 +94,7 @@ S21Matrix& S21Matrix::operator+=(const S21Matrix& other) {
       }
     }
   } else {
-    throw std::bad_exception();
+    throw std::runtime_error("Different size of matrices");
   }
   return *this;
 }
@@ -106,7 +107,7 @@ S21Matrix& S21Matrix::operator-=(const S21Matrix& other) {
       }
     }
   } else {
-    throw std::bad_exception();
+    throw std::runtime_error("Different size of matrices");
   }
   return *this;
 }
@@ -123,12 +124,13 @@ S21Matrix& S21Matrix::operator*=(const S21Matrix& other) {
     }
     *this = tmp;
   } else {
-    throw std::bad_exception();
+    throw std::runtime_error(
+        "The rows of first matrix are not equal to the cols of second matrix");
   }
   return *this;
 }
 
-S21Matrix& S21Matrix::operator*=(const double& num) {
+S21Matrix& S21Matrix::operator*=(const double& num) noexcept {
   for (int i = 0; i < this->rows_; i++) {
     for (int j = 0; j < this->cols_; j++) {
       this->matrix_[i][j] *= num;
@@ -139,7 +141,7 @@ S21Matrix& S21Matrix::operator*=(const double& num) {
 
 double& S21Matrix::operator()(const int& i, const int& j) {
   if (i > this->rows_ || i < 0 || j > this->cols_ || j < 0) {
-    throw std::bad_exception();
+    throw std::runtime_error("Out of range");
   } else {
     return this->matrix_[i][j];
   }

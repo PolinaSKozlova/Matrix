@@ -20,7 +20,7 @@ void S21Matrix::SubMatrix(const S21Matrix& other) {
   }
 }
 
-void S21Matrix::MulNumber(const double& num) { *this *= num; }
+void S21Matrix::MulNumber(const double& num) noexcept { *this *= num; }
 
 void S21Matrix::MulMatrix(const S21Matrix& other) {
   try {
@@ -30,19 +30,15 @@ void S21Matrix::MulMatrix(const S21Matrix& other) {
   }
 }
 
-S21Matrix S21Matrix::Transpose() {
-  if (!(this->CheckMatrix())) {
-    S21Matrix tmp(this->cols_, this->rows_);
-    for (int i = 0; i < this->cols_; i++) {
-      for (int j = 0; j < this->rows_; j++) {
-        tmp.matrix_[i][j] = this->matrix_[j][i];
-      }
+S21Matrix S21Matrix::Transpose() noexcept {
+  S21Matrix tmp(this->cols_, this->rows_);
+  for (int i = 0; i < this->cols_; i++) {
+    for (int j = 0; j < this->rows_; j++) {
+      tmp.matrix_[i][j] = this->matrix_[j][i];
     }
-    *this = tmp;
-    return *this;
-  } else {
-    throw std::bad_exception();
   }
+  *this = tmp;
+  return *this;
 }
 
 // S21Matrix S21Matrix::CalcComplements() {}
