@@ -33,11 +33,11 @@ class S21Matrix {
   /* Вычитает из текущей матрицы другую */
   void SubMatrix(const S21Matrix& other);
   /* Умножает текущую матрицу на число */
-  void MulNumber(const double& num);
+  void MulNumber(const double& num) noexcept;
   /* Умножает текущую матрицу на вторую */
   void MulMatrix(const S21Matrix& other);
   /* Создает новую транспонированную матрицу из текущей и возвращает ее */
-  S21Matrix Transpose();
+  S21Matrix Transpose() noexcept;
   /* Вычисляет матрицу алгебраических дополнений текущей матрицы
   и возвращает ее */
   S21Matrix CalcComplements();
@@ -46,29 +46,25 @@ class S21Matrix {
   /* Вычисляет и возвращает обратную матрицу */
   S21Matrix InverseMatrix();
   void MemoryAllocate();
-  int CheckMatrix();
-  int CheckMatrix(const S21Matrix& other);
   /************************************************/
   void ShowMatrix();
   void FillMatrix();
   void FillMatrix1();
   /************************************************/
 
-  /*Этот спецификатор указывает, что наша функция
-                             (конструктор переноса) не генерирует (не
-                             выбрасывает) исключение или аварийно завершает
-                             свою работу. */
-
+  /*noexcept  Этот спецификатор указывает, что наша функция(конструктор
+    переноса) не генерирует (не выбрасывает) исключение или аварийно завершает
+    свою работу. */
   S21Matrix operator+(const S21Matrix& other);
   S21Matrix operator-(const S21Matrix& other);
   S21Matrix operator*(const S21Matrix& other);
-  S21Matrix operator*(const double& num);
+  S21Matrix operator*(const double& num) noexcept;
   bool operator==(const S21Matrix& other) noexcept;
   S21Matrix& operator=(const S21Matrix& other) noexcept;
   S21Matrix& operator+=(const S21Matrix& other);
   S21Matrix& operator-=(const S21Matrix& other);
   S21Matrix& operator*=(const S21Matrix& other);
-  S21Matrix& operator*=(const double& num);
+  S21Matrix& operator*=(const double& num) noexcept;
   double& operator()(const int& i, const int& j);
 
  private:
