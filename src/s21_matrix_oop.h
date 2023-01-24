@@ -1,6 +1,7 @@
 #ifndef SRC_S21_MATRIX_OOP_H_
 #define SRC_S21_MATRIX_OOP_H_
 
+#include <exception>
 #include <iostream>
 
 enum STATUS { OK, ERROR };
@@ -32,7 +33,7 @@ class S21Matrix {
   /* Вычитает из текущей матрицы другую */
   void SubMatrix(const S21Matrix& other);
   /* Умножает текущую матрицу на число */
-  void MulNumber(const double num);
+  void MulNumber(const double& num);
   /* Умножает текущую матрицу на вторую */
   void MulMatrix(const S21Matrix& other);
   /* Создает новую транспонированную матрицу из текущей и возвращает ее */
@@ -68,7 +69,7 @@ class S21Matrix {
   S21Matrix& operator-=(const S21Matrix& other);
   S21Matrix& operator*=(const S21Matrix& other);
   S21Matrix& operator*=(const double& num);
-  double& operator()(const int i, const int j);
+  double& operator()(const int& i, const int& j);
 
  private:
   int rows_, cols_;  // Rows and columns
