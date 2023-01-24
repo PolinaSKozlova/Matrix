@@ -50,7 +50,7 @@ S21Matrix S21Matrix::operator*(const S21Matrix& other) {
   return tmp;
 }
 
-S21Matrix S21Matrix::operator*(const double num) {
+S21Matrix S21Matrix::operator*(const double& num) {
   S21Matrix tmp(this->rows_, this->cols_);
   if (!(this->CheckMatrix())) {
     for (int i = 0; i < this->rows_; i++) {
@@ -148,7 +148,7 @@ S21Matrix& S21Matrix::operator*=(const S21Matrix& other) {
   return *this;
 }
 
-S21Matrix& S21Matrix::operator*=(const double num) {
+S21Matrix& S21Matrix::operator*=(const double& num) {
   if (!(this->CheckMatrix())) {
     for (int i = 0; i < this->rows_; i++) {
       for (int j = 0; j < this->cols_; j++) {
