@@ -5,10 +5,10 @@ bool S21Matrix::EqMatrix(const S21Matrix& other) noexcept {
 }
 
 void S21Matrix::SumMatrix(const S21Matrix& other) {
-  try {
+  if (rows_ == other.rows_ && cols_ == other.cols_) {
     *this += other;
-  } catch (std::exception& ex) {
-    std::cout << ex.what() << std::endl;
+  } else {
+    throw std::runtime_error("Different size of matrices");
   }
 }
 
