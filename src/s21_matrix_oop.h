@@ -72,9 +72,13 @@ class S21Matrix {
   S21Matrix& operator*=(const double& num) noexcept;
   double& operator()(const int& i, const int& j);
 
+  friend double** PtrToMatrix(const S21Matrix& other);
+
  private:
   int rows_, cols_;  // Rows and columns
   double** matrix_;  // Pointer to the memory where the matrix is allocated
 };
+
+S21Matrix operator*(const double& num, const S21Matrix& other) noexcept;
 
 #endif  // SRC_S21_MATRIX_OOP_H_

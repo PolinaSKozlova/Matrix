@@ -55,6 +55,12 @@ S21Matrix S21Matrix::operator*(const double& num) noexcept {
   return tmp;
 }
 
+S21Matrix operator*(const double& num, const S21Matrix& other) noexcept {
+  S21Matrix tmp(other);
+  tmp *= num;
+  return tmp;
+}
+
 bool S21Matrix::operator==(const S21Matrix& other) noexcept {
   int status_code = OK;
   if (this->rows_ == other.rows_ && this->cols_ == other.cols_) {
