@@ -1,6 +1,6 @@
-#include <cmath>
-
 #include "./s21_matrix_oop.h"
+
+static double FABS(double num) { return (num < 0 ? -num : num); }
 
 S21Matrix S21Matrix::operator+(const S21Matrix& other) {
   if (rows_ == other.rows_ && cols_ == other.cols_) {
@@ -68,7 +68,7 @@ bool S21Matrix::operator==(const S21Matrix& other) noexcept {
   if (this->rows_ == other.rows_ && this->cols_ == other.cols_) {
     for (int i = 0; i < this->rows_ && !status_code; i++) {
       for (int j = 0; j < this->cols_ && !status_code; j++) {
-        if (fabs(this->matrix_[i][j] - other.matrix_[i][j]) > 1e-7L) {
+        if (FABS(this->matrix_[i][j] - other.matrix_[i][j]) > 1e-7L) {
           status_code = ERROR;
         }
       }
