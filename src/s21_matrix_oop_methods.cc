@@ -59,6 +59,17 @@ double S21Matrix::Determinant() {
 
 double S21Matrix::CountDeterm() {
   double dtrm = 0;
+  if (this->rows_ == 2) {
+    dtrm = this->DefineDeterminant();
+  } else {
+    for (int j = 0; j < this->cols_; j++) {
+      S21Matrix minor(this->rows_ - 1, this->cols_ - 1);
+      // minor.MinorMatrix(0, j, *this);
+      dtrm += SignForDeterminant(j) * this->matrix_[0][j] *
+              minor.MinorMatrix(0, j, *this).CountDeterm();
+    }
+  }
+
   return dtrm;
 }
 
