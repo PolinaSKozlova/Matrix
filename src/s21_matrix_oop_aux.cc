@@ -1,3 +1,5 @@
+
+
 #include "./s21_matrix_oop.h"
 
 void S21Matrix::MemoryAllocate() {
@@ -9,9 +11,7 @@ void S21Matrix::MemoryAllocate() {
 
 int S21Matrix::IsSquare() { return (this->rows_ == this->cols_) ? OK : ERROR; }
 
-int S21Matrix::SignForDeterminant(const int& num) {
-  return (num % 2 == 0) ? 1 : -1;
-}
+int S21Matrix::SignForOne(const int& num) { return (num % 2 == 0) ? 1 : -1; }
 
 S21Matrix& S21Matrix::MinorMatrix(const int& rows, const int& cols,
                                   const S21Matrix& other) {
@@ -31,6 +31,31 @@ S21Matrix& S21Matrix::MinorMatrix(const int& rows, const int& cols,
   return *this;
 }
 
+double S21Matrix::CountDeterm() {
+  double dtrm = 0;
+  if (this->rows_ == 2) {
+    dtrm = this->DefineDeterminant();
+  } else {
+    for (int j = 0; j < this->cols_; j++) {
+      S21Matrix minor(this->rows_ - 1, this->cols_ - 1);
+      dtrm += SignForOne(j) * this->matrix_[0][j] *
+              minor.MinorMatrix(0, j, *this).CountDeterm();
+    }
+  }
+  return dtrm;
+}
+
+double S21Matrix::DefineDeterminant() {
+  return (this->matrix_[0][0] * this->matrix_[1][1] -
+          this->matrix_[0][1] * this->matrix_[1][0]);
+}
+
+double S21Matrix::RandomDouble(double min, double max) {
+  double output = 0;
+  output = (((double)rand() * (max - min)) / (double)RAND_MAX) + min;
+  output = (trunc(output * 1000.) / 1000.);
+  return output;
+}
 /************************************************/
 
 void S21Matrix::ShowMatrix() {
@@ -40,7 +65,7 @@ void S21Matrix::ShowMatrix() {
     }
     std::cout << std::endl;
   }
-  std::cout << "call function ShowMatrix " << this->matrix_ << std::endl;
+  // std::cout << "call function ShowMatrix " << this->matrix_ << std::endl;
 }
 
 void S21Matrix::FillMatrix() {
@@ -54,7 +79,7 @@ void S21Matrix::FillMatrix() {
 void S21Matrix::FillMatrix1() {
   for (int i = 0; i < rows_; i++) {
     for (int j = 0; j < cols_; j++) {
-      this->matrix_[i][j] = i + j;
+      this->matrix_[i][j] = RandomDouble(-10, 10);
     }
   }
 }
