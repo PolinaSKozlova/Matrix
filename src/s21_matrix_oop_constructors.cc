@@ -63,7 +63,8 @@ void S21Matrix::SetRows(const int& r) {
     *this = tmp;
     this->rows_ = r;
   } else {
-    throw std::bad_exception();
+    throw std::runtime_error(
+        "The rows of matrix are less than or equal to zero");
   }
 }
 
@@ -80,15 +81,7 @@ void S21Matrix::SetCols(const int& c) {
     *this = tmp;
     this->cols_ = c;
   } else {
-    throw std::bad_exception();
+    throw std::runtime_error(
+        "The cols of matrix are less than or equal to zero");
   }
 }
-
-void S21Matrix::MemoryAllocate() {
-  this->matrix_ = new double*[rows_];
-  for (int i = 0; i < rows_; i++) {
-    this->matrix_[i] = new double[cols_]{};
-  }
-}
-
-int S21Matrix::IsSquare() { return (this->rows_ == this->cols_) ? OK : ERROR; }
