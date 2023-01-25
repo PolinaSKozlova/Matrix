@@ -1,7 +1,7 @@
 #include "./s21_matrix_oop.h"
 
 bool S21Matrix::EqMatrix(const S21Matrix& other) noexcept {
-  return (*this == other) ? OK : ERROR;
+  return !(*this == other) ? OK : ERROR;
 }
 
 void S21Matrix::SumMatrix(const S21Matrix& other) {
@@ -78,7 +78,8 @@ double S21Matrix::Determinant() {
 S21Matrix S21Matrix::InverseMatrix() {
   double dtrm = 0;
   dtrm = this->Determinant();
-  if (!(this->IsSquare()) && dtrm != 0) {
+  int res = this->IsSquare();
+  if (!res && dtrm != 0) {
     S21Matrix tmp(*this);
     if (tmp.rows_ == 1) {
       tmp.matrix_[0][0] = 1. / dtrm;
@@ -88,6 +89,7 @@ S21Matrix S21Matrix::InverseMatrix() {
     }
     return tmp;
   } else {
-    throw std::runtime_error("Matrix is not square");
+    throw std::runtime_error(
+        "Matrix is not square or determinant is equal to zero");
   }
 }
