@@ -1,5 +1,3 @@
-
-
 #include "./s21_matrix_oop.h"
 
 void S21Matrix::MemoryAllocate() {
@@ -50,6 +48,23 @@ double S21Matrix::DefineDeterminant() {
           this->matrix_[0][1] * this->matrix_[1][0]);
 }
 
+void S21Matrix::FillMatrix() {
+  double k = 0.34;
+  for (int i = 0; i < rows_; i++) {
+    for (int j = 0; j < cols_; j++, k += 0.25) {
+      this->matrix_[i][j] = i % (j + 1) + (i + j + k);
+    }
+  }
+}
+
+void S21Matrix::FillSimpleMatrix() {
+  for (int i = 0; i < rows_; i++) {
+    for (int j = 0; j < cols_; j++) {
+      this->matrix_[i][j] = i + j;
+    }
+  }
+}
+
 /************************************************/
 
 void S21Matrix::ShowMatrix() {
@@ -62,19 +77,4 @@ void S21Matrix::ShowMatrix() {
   // std::cout << "call function ShowMatrix " << this->matrix_ << std::endl;
 }
 
-void S21Matrix::FillMatrix() {
-  for (int i = 0; i < rows_; i++) {
-    for (int j = 0; j < cols_; j++) {
-      this->matrix_[i][j] = 1 + i * j;
-    }
-  }
-}
-
-void S21Matrix::FillMatrix1() {
-  for (int i = 0; i < rows_; i++) {
-    for (int j = 0; j < cols_; j++) {
-      this->matrix_[i][j] = i % (j + 1) + (i + j + 1);
-    }
-  }
-}
 /************************************************/
