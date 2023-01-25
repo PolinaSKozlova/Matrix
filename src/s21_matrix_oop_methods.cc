@@ -37,65 +37,57 @@ S21Matrix S21Matrix::Transpose() noexcept {
       tmp.matrix_[i][j] = this->matrix_[j][i];
     }
   }
-  *this = tmp;
-  return *this;
+  return tmp;
 }
 
-// S21Matrix S21Matrix::CalcComplements() {}
+S21Matrix S21Matrix::CalcComplements() {
+  if (!(this->IsSquare())) {
+    S21Matrix tmp(this->rows_, this->cols_);
+    if (this->rows_ == 1) {
+      tmp.matrix_[0][0] = this->matrix_[0][0];
+    } else {
+      double dtrm = 0;
+      S21Matrix minor(tmp.rows_ - 1, tmp.cols_ - 1);
+      for (int i = 0; i < tmp.rows_; i++) {
+        for (int j = 0; j < tmp.cols_; j++) {
+          dtrm = minor.MinorMatrix(i, j, *this).Determinant();
+          tmp.matrix_[i][j] = SignForOne(i + j) * dtrm;
+        }
+      }
+    }
+    return tmp;
+  } else {
+    throw std::runtime_error("Matrix is not square");
+  }
+}
 
 double S21Matrix::Determinant() {
-  double dtrm = 0;
   if (!(this->IsSquare())) {
+    double dtrm = 0;
     if (this->rows_ == 1) {
       dtrm = this->matrix_[0][0];
     } else {
       dtrm = this->CountDeterm();
     }
+    return dtrm;
   } else {
     throw std::runtime_error("Matrix is not square");
   }
-  return dtrm;
 }
 
-double S21Matrix::CountDeterm() {
+S21Matrix S21Matrix::InverseMatrix() {
   double dtrm = 0;
-  if (this->rows_ == 2) {
-    dtrm = this->DefineDeterminant();
-  } else {
-    for (int j = 0; j < this->cols_; j++) {
-      S21Matrix minor(this->rows_ - 1, this->cols_ - 1);
-      // minor.MinorMatrix(0, j, *this);
-      dtrm += SignForDeterminant(j) * this->matrix_[0][j] *
-              minor.MinorMatrix(0, j, *this).CountDeterm();
+  dtrm = this->Determinant();
+  if (!(this->IsSquare()) && dtrm != 0) {
+    S21Matrix tmp(*this);
+    if (tmp.rows_ == 1) {
+      tmp.matrix_[0][0] = 1. / dtrm;
+    } else {
+      tmp = tmp.CalcComplements().Transpose();
+      tmp.MulNumber(1. / dtrm);
     }
+    return tmp;
+  } else {
+    throw std::runtime_error("Matrix is not square");
   }
-
-  return dtrm;
 }
-
-double S21Matrix::DefineDeterminant() {
-  return (this->matrix_[0][0] * this->matrix_[1][1] -
-          this->matrix_[0][1] * this->matrix_[1][0]);
-}
-
-// S21Matrix S21Matrix::InverseMatrix() {
-//   S21Matrix tmp(this->rows_, this->cols_);
-//   if (!(this->CheckMatrix())) {
-//     double dtrm = 0;
-//     dtrm = this->Determinant();
-//     if (this->rows_ == this->cols_ && dtrm != 0) {
-//       if (this->rows_ == 1) {
-//         tmp.matrix_[0][0] = 1. / dtrm;
-//       } else {
-//         this->CalcComplements();
-//         this->Transpose();
-//         this->MulNumber(1. / dtrm);
-//       }
-//     } else {
-//       throw std::bad_exception();
-//     }
-//   } else {
-//     throw std::bad_exception();
-//   }
-//   return tmp;
-// }
