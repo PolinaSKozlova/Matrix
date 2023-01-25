@@ -40,9 +40,9 @@ S21Matrix::~S21Matrix() {
   cols_ = 0;
 }
 
-int S21Matrix::GetRows() { return this->rows_; };
+int S21Matrix::GetRows() { return rows_; };
 
-int S21Matrix::GetCols() { return this->cols_; }
+int S21Matrix::GetCols() { return cols_; }
 
 void S21Matrix::SetRows(const int& r) {
   if (r > 0) {
