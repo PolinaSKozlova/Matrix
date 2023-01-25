@@ -46,9 +46,12 @@ class S21Matrix {
   /* Вычисляет и возвращает обратную матрицу */
   S21Matrix InverseMatrix();
   void MemoryAllocate();
-  inline int IsSquare();
+  int IsSquare();
+  int SignForDeterminant(const int& num);
   double CountDeterm();
   double DefineDeterminant();
+  S21Matrix& MinorMatrix(const int& rows, const int& cols,
+                         const S21Matrix& other);
   /************************************************/
   void ShowMatrix();
   void FillMatrix();
