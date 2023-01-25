@@ -6,16 +6,16 @@ S21Matrix::S21Matrix() {
   rows_ = 1;
   cols_ = 1;
   MemoryAllocate();
+  // matrix_[0][0] = 1;
 }
 
 S21Matrix::S21Matrix(int r, int c) : rows_(r), cols_(c) {
-  assert(rows_ <= 0 || cols_ <= 0);
+  assert(rows_ > 0 || cols_ > 0);
   MemoryAllocate();
 }
 
-S21Matrix::S21Matrix(const S21Matrix& other) {
-  this->rows_ = other.rows_;
-  this->cols_ = other.cols_;
+S21Matrix::S21Matrix(const S21Matrix& other)
+    : rows_(other.rows_), cols_(other.cols_) {
   MemoryAllocate();
   for (int i = 0; i < rows_; i++) {
     for (int j = 0; j < cols_; j++) {
@@ -24,13 +24,10 @@ S21Matrix::S21Matrix(const S21Matrix& other) {
   }
 }
 
-S21Matrix::S21Matrix(S21Matrix&& other) {
-  this->matrix_ = other.matrix_;
-  this->rows_ = other.rows_;
-  this->cols_ = other.cols_;
-  other.matrix_ = nullptr;
-  other.cols_ = 0;
-  other.rows_ = 0;
+S21Matrix::S21Matrix(S21Matrix&& other) : rows_(0), cols_(0), matrix_(nullptr) {
+  std::swap(matrix_, other.matrix_);
+  std::swap(rows_, other.rows_);
+  std::swap(cols_, other.cols_);
 }
 
 S21Matrix::~S21Matrix() {
