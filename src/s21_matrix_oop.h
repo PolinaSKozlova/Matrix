@@ -46,7 +46,7 @@ class S21Matrix {
   /* Вычисляет и возвращает обратную матрицу */
   S21Matrix InverseMatrix();
   void MemoryAllocate();
-  int IsSquare();
+  inline int IsSquare();
   double CountDeterm();
   double DefineDeterminant();
   /************************************************/
@@ -55,9 +55,8 @@ class S21Matrix {
   void FillMatrix1();
   /************************************************/
 
-  /*noexcept  Этот спецификатор указывает, что наша функция(конструктор
-    переноса) не генерирует (не выбрасывает) исключение или аварийно завершает
-    свою работу. */
+  /*noexcept  Этот спецификатор указывает, что наша функция не генерирует (не
+    выбрасывает) исключение или аварийно завершает свою работу. */
   S21Matrix operator+(const S21Matrix& other);
   S21Matrix operator-(const S21Matrix& other);
   S21Matrix operator*(const S21Matrix& other);
