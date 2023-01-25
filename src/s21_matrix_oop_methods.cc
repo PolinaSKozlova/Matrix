@@ -31,19 +31,19 @@ void S21Matrix::MulMatrix(const S21Matrix& other) {
 }
 
 S21Matrix S21Matrix::Transpose() noexcept {
-  S21Matrix tmp(this->cols_, this->rows_);
-  for (int i = 0; i < this->cols_; i++) {
-    for (int j = 0; j < this->rows_; j++) {
-      tmp.matrix_[i][j] = this->matrix_[j][i];
+  S21Matrix tmp(cols_, rows_);
+  for (int i = 0; i < cols_; i++) {
+    for (int j = 0; j < rows_; j++) {
+      tmp.matrix_[i][j] = matrix_[j][i];
     }
   }
   return tmp;
 }
 
 S21Matrix S21Matrix::CalcComplements() {
-  if (!(this->IsSquare())) {
-    S21Matrix tmp(this->rows_, this->cols_);
-    if (this->rows_ == 1) {
+  if (!(IsSquare())) {
+    S21Matrix tmp(rows_, cols_);
+    if (rows_ == 1) {
       tmp.matrix_[0][0] = this->matrix_[0][0];
     } else {
       double dtrm = 0;
@@ -62,12 +62,12 @@ S21Matrix S21Matrix::CalcComplements() {
 }
 
 double S21Matrix::Determinant() {
-  if (!(this->IsSquare())) {
+  if (!(IsSquare())) {
     double dtrm = 0;
-    if (this->rows_ == 1) {
-      dtrm = this->matrix_[0][0];
+    if (rows_ == 1) {
+      dtrm = matrix_[0][0];
     } else {
-      dtrm = this->CountDeterm();
+      dtrm = CountDeterm();
     }
     return dtrm;
   } else {
@@ -77,8 +77,8 @@ double S21Matrix::Determinant() {
 
 S21Matrix S21Matrix::InverseMatrix() {
   double dtrm = 0;
-  dtrm = this->Determinant();
-  int res = this->IsSquare();
+  dtrm = Determinant();
+  int res = IsSquare();
   if (!res && dtrm != 0) {
     S21Matrix tmp(*this);
     if (tmp.rows_ == 1) {
