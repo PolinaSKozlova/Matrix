@@ -50,12 +50,6 @@ double S21Matrix::DefineDeterminant() {
           this->matrix_[0][1] * this->matrix_[1][0]);
 }
 
-double S21Matrix::RandomDouble(double min, double max) {
-  double output = 0;
-  output = (((double)rand() * (max - min)) / (double)RAND_MAX) + min;
-  output = (trunc(output * 1000.) / 1000.);
-  return output;
-}
 /************************************************/
 
 void S21Matrix::ShowMatrix() {
@@ -79,7 +73,7 @@ void S21Matrix::FillMatrix() {
 void S21Matrix::FillMatrix1() {
   for (int i = 0; i < rows_; i++) {
     for (int j = 0; j < cols_; j++) {
-      this->matrix_[i][j] = RandomDouble(-10, 10);
+      this->matrix_[i][j] = i % (j + 1) + (i + j + 1);
     }
   }
 }

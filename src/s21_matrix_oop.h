@@ -1,9 +1,6 @@
 #ifndef SRC_S21_MATRIX_OOP_H_
 #define SRC_S21_MATRIX_OOP_H_
 
-#include <math.h>
-
-#include <cstdlib>
 #include <exception>
 #include <iostream>
 
@@ -55,7 +52,6 @@ class S21Matrix {
   double DefineDeterminant();
   S21Matrix& MinorMatrix(const int& rows, const int& cols,
                          const S21Matrix& other);
-  double RandomDouble(double min, double max);
   /************************************************/
   void ShowMatrix();
   void FillMatrix();
