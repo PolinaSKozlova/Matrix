@@ -1,19 +1,16 @@
+#include <cassert>
+
 #include "./s21_matrix_oop.h"
 
 S21Matrix::S21Matrix() {
-  rows_ = 0;
-  cols_ = 0;
-  matrix_ = nullptr;
+  rows_ = 1;
+  cols_ = 1;
+  MemoryAllocate();
 }
 
-S21Matrix::S21Matrix(int r, int c) {
-  if (r > 0 && c > 0) {
-    rows_ = r;
-    cols_ = c;
-    MemoryAllocate();
-  } else {
-    throw std::bad_exception();
-  }
+S21Matrix::S21Matrix(int r, int c) : rows_(r), cols_(c) {
+  assert(rows_ <= 0 || cols_ <= 0);
+  MemoryAllocate();
 }
 
 S21Matrix::S21Matrix(const S21Matrix& other) {
@@ -28,14 +25,12 @@ S21Matrix::S21Matrix(const S21Matrix& other) {
 }
 
 S21Matrix::S21Matrix(S21Matrix&& other) {
-  if (this != &other) {
-    this->matrix_ = other.matrix_;
-    this->rows_ = other.rows_;
-    this->cols_ = other.cols_;
-    other.matrix_ = nullptr;
-    other.cols_ = 0;
-    other.rows_ = 0;
-  }
+  this->matrix_ = other.matrix_;
+  this->rows_ = other.rows_;
+  this->cols_ = other.cols_;
+  other.matrix_ = nullptr;
+  other.cols_ = 0;
+  other.rows_ = 0;
 }
 
 S21Matrix::~S21Matrix() {
