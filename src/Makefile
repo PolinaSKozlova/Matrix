@@ -11,7 +11,7 @@ REPORT = @mkdir -p report
 OS = $(shell uname)
 ifeq ("$(OS)", "Linux")
     TEST_FLAGS = -lgtest -pthread -lrt -lm -lsubunit
-    LEAKS_RUN = valgrind ./test
+    LEAKS_RUN = valgrind ./tests
 else
     TEST_FLAGS = -lgtest -pthread
     LEAKS_RUN = CK_FORK=no leaks -atExit -- ./tests
@@ -33,7 +33,7 @@ test: clean test_matrix.cc
 	$(CC) $(FLAGS) $(SRCS) test_matrix.cc -o tests $(TEST_FLAGS)
 	./tests
 
-gcov_report: clean tests
+gcov_report: clean test
 	lcov -t "gcov_report" -o test.info -c -d .
 	genhtml -o report test.info
 	open ./report/index.html
