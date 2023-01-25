@@ -1,17 +1,19 @@
+#include <cmath>
+
 #include "./s21_matrix_oop.h"
 
 S21Matrix S21Matrix::operator+(const S21Matrix& other) {
-  S21Matrix tmp(this->rows_, this->cols_);
-  if (this->rows_ == other.rows_ && this->cols_ == other.cols_) {
-    for (int i = 0; i < this->rows_; i++) {
-      for (int j = 0; j < this->cols_; j++) {
+  if (rows_ == other.rows_ && cols_ == other.cols_) {
+    S21Matrix tmp(rows_, cols_);
+    for (int i = 0; i < tmp.rows_; i++) {
+      for (int j = 0; j < tmp.cols_; j++) {
         tmp.matrix_[i][j] = this->matrix_[i][j] + other.matrix_[i][j];
       }
     }
+    return tmp;
   } else {
     throw std::runtime_error("Different size of matrices");
   }
-  return tmp;
 }
 
 S21Matrix S21Matrix::operator-(const S21Matrix& other) {
@@ -66,7 +68,7 @@ bool S21Matrix::operator==(const S21Matrix& other) noexcept {
   if (this->rows_ == other.rows_ && this->cols_ == other.cols_) {
     for (int i = 0; i < this->rows_ && !status_code; i++) {
       for (int j = 0; j < this->cols_ && !status_code; j++) {
-        if (this->matrix_[i][j] != other.matrix_[i][j]) {
+        if (fabs(this->matrix_[i][j] - other.matrix_[i][j]) > 1e-7L) {
           status_code = ERROR;
         }
       }
