@@ -3,10 +3,9 @@
 #include "./s21_matrix_oop.h"
 
 S21Matrix::S21Matrix() {
-  rows_ = 1;
-  cols_ = 1;
-  MemoryAllocate();
-  // matrix_[0][0] = 1;
+  rows_ = 0;
+  cols_ = 0;
+  matrix_ = nullptr;
 }
 
 S21Matrix::S21Matrix(int r, int c) : rows_(r), cols_(c) {
@@ -31,13 +30,13 @@ S21Matrix::S21Matrix(S21Matrix&& other) : rows_(0), cols_(0), matrix_(nullptr) {
 }
 
 S21Matrix::~S21Matrix() {
-  for (int i = 0; i < this->rows_; i++) {
-    delete[] matrix_[i];
+  std::cout << "Destruct " << matrix_ << std::endl;
+  if (matrix_) {
+    MemoryFree();
+    matrix_ = nullptr;
+    rows_ = 0;
+    cols_ = 0;
   }
-  delete[] matrix_;
-  matrix_ = nullptr;
-  rows_ = 0;
-  cols_ = 0;
 }
 
 int S21Matrix::GetRows() { return rows_; };
