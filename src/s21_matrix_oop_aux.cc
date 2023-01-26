@@ -7,6 +7,13 @@ void S21Matrix::MemoryAllocate() {
   }
 }
 
+void S21Matrix::MemoryFree() {
+  for (int i = 0; i < this->rows_; i++) {
+    delete[] matrix_[i];
+  }
+  delete[] matrix_;
+}
+
 int S21Matrix::IsSquare() { return (rows_ == cols_) ? OK : ERROR; }
 
 int S21Matrix::SignForOne(const int& num) { return (num % 2 == 0) ? 1 : -1; }
