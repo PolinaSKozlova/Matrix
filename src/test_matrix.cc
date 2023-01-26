@@ -158,8 +158,14 @@ TEST(SubMatrix, test_3) {
 
 TEST(SubMatrix, test_4) {
   S21Matrix A(5, 5);
-  S21Matrix B(5, 0);
-  EXPECT_THROW(A.SubMatrix(B), std::exception);
+  S21Matrix B(5, 5);
+  S21Matrix C(5, 5);
+  A.FillMatrix();
+  B.FillSimpleMatrix();
+  C = A - B;
+  A.SubMatrix(B);
+  int res = A.EqMatrix(C);
+  ASSERT_EQ(res, OK);
 }
 
 TEST(SubMatrix, test_5) {
