@@ -18,7 +18,7 @@ else
 endif
 
 
-run: clean main.cc $(SRCS) 
+run: clean run.cc $(SRCS) 
 #	clang++ s21_matrix_oop.cc -o run
 	$(CC) $(FLAGS) $(SRCS) run.cc -o run -g
 	./run
