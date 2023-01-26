@@ -115,14 +115,13 @@ TEST(SumMatrix, test_3) {
 TEST(SumMatrix, test_4) {
   S21Matrix A(5, 5);
   S21Matrix B(1, 5);
-  // EXPECT_ANY_THROW(A.SumMatrix(B));
-  //   EXPECT_THROW(A.SumMatrix(B), std::runtime_error *);
+  EXPECT_THROW(A.SumMatrix(B), std::exception);
 }
 
 TEST(SumMatrix, test_5) {
   S21Matrix A(5, 5);
   S21Matrix B(5, 0);
-  //   EXPECT_ANY_THROW(A.SumMatrix(B));
+  EXPECT_THROW(A.SumMatrix(B), std::exception);
 }
 
 TEST(SubMatrix, test_1) {
@@ -160,13 +159,13 @@ TEST(SubMatrix, test_3) {
 TEST(SubMatrix, test_4) {
   S21Matrix A(5, 5);
   S21Matrix B(5, 0);
-  // EXPECT_ANY_THROW(A.SubMatrix(B));
+  EXPECT_THROW(A.SubMatrix(B), std::exception);
 }
 
 TEST(SubMatrix, test_5) {
   S21Matrix A(5, 5);
   S21Matrix B(5, 0);
-  //   EXPECT_ANY_THROW(A.SubMatrix(B));
+  EXPECT_THROW(A.SubMatrix(B), std::exception);
 }
 
 TEST(MulNumber, test_1) {
@@ -189,42 +188,52 @@ TEST(MulNumber, test_1) {
   C(4, 0) = 172.49;
   C(4, 1) = 201.865;
   C(4, 2) = 254.74;
-  A.ShowMatrix();
-  std::cout << std::endl;
-  C.ShowMatrix();
   int res = A.EqMatrix(C);
-  std::cout << std::endl;
   ASSERT_EQ(res, OK);
 }
 
 TEST(MulNumber, test_2) {
   S21Matrix A(5, 5);
-  S21Matrix B(5, 0);
+  A.FillSimpleMatrix();
+  S21Matrix B(A);
+  A.MulNumber(-45.32);
+  B *= -45.32;
+  int res = A.EqMatrix(B);
+  ASSERT_EQ(res, OK);
 }
 
 TEST(MulNumber, test_3) {
-  S21Matrix A(5, 5);
-  S21Matrix B(5, 0);
-}
-
-TEST(MulNumber, test_4) {
-  S21Matrix A(5, 5);
-  S21Matrix B(5, 0);
-}
-
-TEST(MulNumber, test_5) {
-  S21Matrix A(5, 5);
-  S21Matrix B(5, 0);
+  S21Matrix A(7, 4);
+  A.FillMatrix();
+  S21Matrix B(A);
+  A.MulNumber(324.001);
+  B *= 324.001;
+  int res = A.EqMatrix(B);
+  ASSERT_EQ(res, OK);
 }
 
 TEST(MulMatrix, test_1) {
   S21Matrix A(5, 5);
-  S21Matrix B(5, 0);
+  S21Matrix B(5, 5);
+  S21Matrix C(5, 5);
+  A.FillMatrix();
+  B.FillSimpleMatrix();
+  C = A * B;
+  A.MulMatrix(B);
+  int res = A.EqMatrix(C);
+  EXPECT_EQ(res, OK);
 }
 
 TEST(MulMatrix, test_2) {
-  S21Matrix A(5, 5);
-  S21Matrix B(5, 0);
+  S21Matrix A(4, 5);
+  S21Matrix B(5, 4);
+  S21Matrix C(4, 4);
+  A.FillMatrix();
+  B.FillMatrix();
+  C = A * B;
+  A.MulMatrix(B);
+  int res = A.EqMatrix(C);
+  EXPECT_EQ(res, OK);
 }
 
 TEST(MulMatrix, test_3) {
@@ -239,7 +248,8 @@ TEST(MulMatrix, test_4) {
 
 TEST(MulMatrix, test_5) {
   S21Matrix A(5, 5);
-  S21Matrix B(5, 0);
+  S21Matrix B(1, 5);
+  EXPECT_THROW(A.MulMatrix(B), std::exception);
 }
 
 TEST(Transpose, test_1) {
