@@ -237,13 +237,15 @@ TEST(MulMatrix, test_2) {
 }
 
 TEST(MulMatrix, test_3) {
-  S21Matrix A(5, 5);
-  S21Matrix B(5, 0);
+  S21Matrix A(2, 5);
+  S21Matrix B(4, 2);
+  EXPECT_THROW(A.MulMatrix(B), std::exception);
 }
 
 TEST(MulMatrix, test_4) {
-  S21Matrix A(5, 5);
-  S21Matrix B(5, 0);
+  S21Matrix A(5, 1);
+  S21Matrix B(2, 1);
+  EXPECT_THROW(A.MulMatrix(B), std::exception);
 }
 
 TEST(MulMatrix, test_5) {
@@ -300,6 +302,124 @@ TEST(Transpose, test_2) {
   C(3, 3) = 13.09;
   int res = B.EqMatrix(C);
   EXPECT_EQ(res, OK);
+}
+
+TEST(CalcComplements, test_1) {
+  S21Matrix A(4, 4);
+  S21Matrix B(1, 1);
+  S21Matrix C(4, 4);
+  C(0, 0) = 12.54;
+  C(0, 1) = 21.48;
+  C(0, 2) = 14.32;
+  C(0, 3) = -29.84;
+  C(1, 0) = 27.96;
+  C(1, 1) = -42.96;
+  C(1, 2) = -14.32;
+  C(1, 3) = 24.32;
+  C(2, 0) = -15;
+  C(2, 1) = 21.48;
+  C(2, 2) = -14.32;
+  C(2, 3) = 2.84;
+  C(3, 0) = -7.5;
+  C(3, 1) = 0;
+  C(3, 2) = 14.32;
+  C(3, 3) = -9.32;
+  A.FillMatrix();
+  B = A.CalcComplements();
+  int res = B.EqMatrix(C);
+  EXPECT_EQ(res, OK);
+}
+
+TEST(CalcComplements, test_2) {
+  S21Matrix A(5, 5);
+  S21Matrix B(1, 1);
+  S21Matrix C(5, 5);
+  for (int i = 0; i < 5; i++) {
+    for (int j = 0; j < 5; j++) {
+      A(i, j) = i ^ j;
+    }
+  }
+  C(0, 0) = -224;
+  C(0, 1) = 224;
+  C(0, 2) = 224;
+  C(0, 3) = -224;
+  C(0, 4) = 0;
+  C(1, 0) = 224;
+  C(1, 1) = -224;
+  C(1, 2) = -224;
+  C(1, 3) = 224;
+  C(1, 4) = 0;
+  C(2, 0) = 224;
+  C(2, 1) = -224;
+  C(2, 2) = -224;
+  C(2, 3) = 224;
+  C(2, 4) = 0;
+  C(3, 0) = -224;
+  C(3, 1) = 224;
+  C(3, 2) = 224;
+  C(3, 3) = -224;
+  C(3, 4) = 0;
+  C(4, 0) = 0;
+  C(4, 1) = 0;
+  C(4, 2) = 0;
+  C(4, 3) = 0;
+  C(4, 4) = 0;
+  B = A.CalcComplements();
+  int res = B.EqMatrix(C);
+  EXPECT_EQ(res, OK);
+}
+
+TEST(CalcComplements, test_3) {
+  S21Matrix A(5, 5);
+  S21Matrix B(1, 1);
+  S21Matrix C(5, 5);
+  for (int i = 0; i < 5; i++) {
+    for (int j = 0; j < 5; j++) {
+      A(i, j) = 1;
+    }
+  }
+  B = A.CalcComplements();
+  int res = B.EqMatrix(C);
+  EXPECT_EQ(res, OK);
+}
+TEST(CalcComplements, test_4) {
+  S21Matrix A(3, 4);
+  S21Matrix B(1, 1);
+  EXPECT_THROW((B = A.CalcComplements()), std::exception);
+}
+
+TEST(CalcComplements, test_5) {
+  S21Matrix A(7, 4);
+  S21Matrix B(1, 1);
+  EXPECT_THROW((B = A.CalcComplements()), std::exception);
+}
+
+TEST(Determinant, test_1) {
+  S21Matrix A(7, 4);
+  S21Matrix B(1, 1);
+}
+
+TEST(Determinant, test_2) {
+  S21Matrix A(7, 4);
+  S21Matrix B(1, 1);
+}
+
+TEST(Determinant, test_3) {
+  S21Matrix A(7, 4);
+  S21Matrix B(1, 1);
+}
+
+TEST(InverseMatrix, test_1) {
+  S21Matrix A(7, 4);
+  S21Matrix B(1, 1);
+}
+TEST(InverseMatrix, test_2) {
+  S21Matrix A(7, 4);
+  S21Matrix B(1, 1);
+}
+TEST(InverseMatrix, test_3) {
+  S21Matrix A(7, 4);
+  S21Matrix B(1, 1);
 }
 
 int main(int argc, char **argv) {
