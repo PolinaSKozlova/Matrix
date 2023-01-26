@@ -395,31 +395,95 @@ TEST(CalcComplements, test_5) {
 }
 
 TEST(Determinant, test_1) {
-  S21Matrix A(7, 4);
-  S21Matrix B(1, 1);
+  S21Matrix A(7, 7);
+  A.FillMatrix();
+  double d = A.Determinant();
+  EXPECT_NEAR(d, -14605.2, 1e-7L);
 }
 
 TEST(Determinant, test_2) {
-  S21Matrix A(7, 4);
-  S21Matrix B(1, 1);
+  S21Matrix A(5, 5);
+  A.FillSimpleMatrix();
+  double d = A.Determinant();
+  EXPECT_NEAR(d, 0, 1e-7L);
 }
 
 TEST(Determinant, test_3) {
-  S21Matrix A(7, 4);
-  S21Matrix B(1, 1);
+  S21Matrix A(6, 6);
+  for (int i = 0; i < 6; i++) {
+    for (int j = 0; j < 6; j++) {
+      A(i, j) = i ^ j;
+    }
+  }
+  double d = A.Determinant();
+  EXPECT_NEAR(d, 0, 1e-7L);
+}
+
+TEST(Determinant, test_4) {
+  S21Matrix A(6, 6);
+  A.FillMatrix();
+  for (int i = 0; i < 6; i++) {
+    for (int j = 0; j < 6; j++) {
+      A(i, j) += i + j;
+    }
+  }
+  double d = A.Determinant();
+  EXPECT_NEAR(d, -4684.2, 1e-7L);
+}
+
+TEST(Determinant, test_5) {
+  S21Matrix A(7, 3);
+  EXPECT_THROW((A.Determinant()), std::exception);
 }
 
 TEST(InverseMatrix, test_1) {
-  S21Matrix A(7, 4);
+  S21Matrix A(4, 4);
   S21Matrix B(1, 1);
+  S21Matrix C(A);
+  C(0, 0) = -0.333333;
+  C(0, 1) = 0.333333;
+  C(0, 2) = -0.666667;
+  C(0, 3) = 0.666667;
+  C(1, 0) = -0.166667;
+  C(1, 1) = -0.333333;
+  C(1, 2) = 1.16667;
+  C(1, 3) = -0.666667;
+  C(2, 0) = -0.333333;
+  C(2, 1) = 0.333333;
+  C(2, 2) = 0.333333;
+  C(2, 3) = -0.333333;
+  C(3, 0) = 0.611111;
+  C(3, 1) = -0.111111;
+  C(3, 2) = -0.611111;
+  C(3, 3) = 0.444444;
+  for (int i = 0; i < 4; i++) {
+    for (int j = 0; j < 4; j++) {
+      A(i, j) = (i ^ j) + (i % (j + 1));
+    }
+  }
+  B = A.InverseMatrix();
+  int res = B.EqMatrix(C);
+  EXPECT_EQ(res, ERROR);
 }
+
 TEST(InverseMatrix, test_2) {
-  S21Matrix A(7, 4);
-  S21Matrix B(1, 1);
+  // S21Matrix A(4, 4);
+  // S21Matrix B(1, 1);
 }
+
 TEST(InverseMatrix, test_3) {
-  S21Matrix A(7, 4);
-  S21Matrix B(1, 1);
+  // S21Matrix A(7, 4);
+  // S21Matrix B(1, 1);
+}
+
+TEST(InverseMatrix, test_4) {
+  // S21Matrix A(7, 4);
+  // S21Matrix B(1, 1);
+}
+
+TEST(InverseMatrix, test_5) {
+  // S21Matrix A(7, 4);
+  // S21Matrix B(1, 1);
 }
 
 int main(int argc, char **argv) {
