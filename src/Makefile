@@ -31,9 +31,6 @@ s21_matrix_oop.a: $(SRCS)
 	ranlib $(PROJECT_NAME).a 
 	rm -rf *.o
 
-#	  $(CC) $(CC_FLAGS) -c $(PROJECT_NAME).cc -o $(PROJECT_NAME).o
-#      ar rc $(PROJECT_NAME).a $(PROJECT_NAME).o
-
 test: clean test_matrix.cc $(SRCS)
 	$(CC) $(FLAGS) $(SRCS) test_matrix.cc -o test $(TEST_FLAGS)
 	./test
@@ -48,7 +45,6 @@ gcov_report: clean test
 	lcov -t "gcov_report" -o test.info -c -d . --no-external
 	genhtml -o report test.info
 	open ./report/index.html
-
 
 clean_src:
 	rm -rf *.gcda *.gcno *.gcov test.info report
