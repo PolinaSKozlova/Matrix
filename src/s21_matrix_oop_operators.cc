@@ -83,7 +83,7 @@ S21Matrix& S21Matrix::operator=(const S21Matrix& other) noexcept {
   this->rows_ = other.rows_;
   this->cols_ = other.cols_;
   if (this->matrix_ != nullptr) {
-    delete[] this->matrix_;
+    MemoryFree();
   }
   MemoryAllocate();
   for (int i = 0; i < other.rows_; i++) {
@@ -101,10 +101,14 @@ S21Matrix& S21Matrix::operator+=(const S21Matrix& other) {
         this->matrix_[i][j] += other.matrix_[i][j];
       }
     }
+    double** p_to_this = PtrToMatrix(*this);
+    double** p_to_other = PtrToMatrix(other);
+    std::cout << "SumMatrix A " << p_to_this << " B " << p_to_other
+              << std::endl;
+    return *this;
   } else {
     throw std::runtime_error("Different size of matrices");
   }
-  return *this;
 }
 
 S21Matrix& S21Matrix::operator-=(const S21Matrix& other) {
