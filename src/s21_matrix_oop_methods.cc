@@ -4,31 +4,13 @@ bool S21Matrix::EqMatrix(const S21Matrix& other) noexcept {
   return !(*this == other) ? OK : ERROR;
 }
 
-void S21Matrix::SumMatrix(const S21Matrix& other) {
-  if (rows_ == other.rows_ && cols_ == other.cols_) {
-    *this += other;
-  } else {
-    throw std::runtime_error("Different size of matrices");
-  }
-}
+void S21Matrix::SumMatrix(const S21Matrix& other) { *this += other; }
 
-void S21Matrix::SubMatrix(const S21Matrix& other) {
-  try {
-    *this -= other;
-  } catch (std::exception& ex) {
-    std::cout << ex.what() << std::endl;
-  }
-}
+void S21Matrix::SubMatrix(const S21Matrix& other) { *this -= other; }
 
 void S21Matrix::MulNumber(const double& num) noexcept { *this *= num; }
 
-void S21Matrix::MulMatrix(const S21Matrix& other) {
-  try {
-    *this *= other;
-  } catch (std::exception& ex) {
-    std::cout << ex.what() << std::endl;
-  }
-}
+void S21Matrix::MulMatrix(const S21Matrix& other) { *this *= other; }
 
 S21Matrix S21Matrix::Transpose() noexcept {
   S21Matrix tmp(cols_, rows_);
