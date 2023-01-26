@@ -58,10 +58,8 @@ double S21Matrix::Determinant() {
 }
 
 S21Matrix S21Matrix::InverseMatrix() {
-  double dtrm = 0;
-  dtrm = Determinant();
-  int res = IsSquare();
-  if (!res && dtrm != 0) {
+  double dtrm = Determinant();
+  if (!IsSquare() && dtrm != 0) {
     S21Matrix tmp(*this);
     if (tmp.rows_ == 1) {
       tmp.matrix_[0][0] = 1. / dtrm;
