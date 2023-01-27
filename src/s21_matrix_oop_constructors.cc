@@ -3,8 +3,8 @@
 #include "./s21_matrix_oop.h"
 
 S21Matrix::S21Matrix() : rows_(0), cols_(0) {
-  // matrix_ = nullptr;
-  MemoryAllocate();
+  matrix_ = nullptr;
+  // MemoryAllocate();
 }
 
 S21Matrix::S21Matrix(int r, int c) : rows_(r), cols_(c) {
@@ -42,7 +42,6 @@ int S21Matrix::GetRows() { return rows_; };
 int S21Matrix::GetCols() { return cols_; }
 
 void S21Matrix::SetRows(const int& r) {
-  // if (r > 0) {
   assert(r > 0);
   S21Matrix tmp(r, cols_);
   for (int i = 0; i < std::min(rows_, r); i++) {
@@ -52,14 +51,9 @@ void S21Matrix::SetRows(const int& r) {
   }
   *this = tmp;
   rows_ = r;
-  // } else {
-  //   throw std::runtime_error(
-  //       "The rows of matrix are less than or equal to zero");
-  // }
 }
 
 void S21Matrix::SetCols(const int& c) {
-  // if (c > 0) {
   assert(c > 0);
   S21Matrix tmp(rows_, c);
   for (int i = 0; i < rows_; i++) {
@@ -71,8 +65,4 @@ void S21Matrix::SetCols(const int& c) {
   }
   *this = tmp;
   cols_ = c;
-  // } else {
-  //   throw std::runtime_error(
-  //       "The cols of matrix are less than or equal to zero");
-  // }
 }
