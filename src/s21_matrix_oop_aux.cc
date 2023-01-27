@@ -1,4 +1,4 @@
-#include "./s21_matrix_oop.h"
+#include "s21_matrix_oop.h"
 
 void S21Matrix::MemoryAllocate() {
   matrix_ = new double*[rows_];

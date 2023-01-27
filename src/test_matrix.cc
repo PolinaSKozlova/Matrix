@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "./s21_matrix_oop.h"
+#include "s21_matrix_oop.h"
 
 TEST(constuctors, test_1) {
   S21Matrix A(4, 7);

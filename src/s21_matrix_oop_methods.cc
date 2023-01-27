@@ -1,4 +1,4 @@
-#include "./s21_matrix_oop.h"
+#include "s21_matrix_oop.h"
 
 bool S21Matrix::EqMatrix(const S21Matrix& other) noexcept {
   return !(*this == other) ? OK : ERROR;

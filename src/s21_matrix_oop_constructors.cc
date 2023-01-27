@@ -1,11 +1,8 @@
 #include <cassert>
 
-#include "./s21_matrix_oop.h"
+#include "s21_matrix_oop.h"
 
-S21Matrix::S21Matrix() : rows_(0), cols_(0) {
-  matrix_ = nullptr;
-  // MemoryAllocate();
-}
+S21Matrix::S21Matrix() : rows_(0), cols_(0), matrix_(nullptr) {}
 
 S21Matrix::S21Matrix(int r, int c) : rows_(r), cols_(c) {
   assert(rows_ > 0 || cols_ > 0);
