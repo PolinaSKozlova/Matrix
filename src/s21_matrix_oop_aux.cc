@@ -78,7 +78,7 @@ double** PtrToMatrix(const S21Matrix& other) {
 
 /************************************************/
 
-void S21Matrix::ShowMatrix() {
+/*void S21Matrix::ShowMatrix() {
   for (int i = 0; i < rows_; i++) {
     for (int j = 0; j < cols_; j++) {
       std::cout << matrix_[i][j] << " ";
@@ -86,6 +86,6 @@ void S21Matrix::ShowMatrix() {
     std::cout << std::endl;
   }
   // std::cout << "call function ShowMatrix " << this->matrix_ << std::endl;
-}
+}*/
 
 /************************************************/
