@@ -52,12 +52,11 @@ class S21Matrix {
   double DefineDeterminant();
   S21Matrix& MinorMatrix(const int& rows, const int& cols,
                          const S21Matrix& other);
-  /************************************************/
+  friend double** PtrToMatrix(const S21Matrix& other);
+
   void ShowMatrix();
   void FillMatrix();
   void FillSimpleMatrix();
-  /************************************************/
-  friend double** PtrToMatrix(const S21Matrix& other);
 
  private:
   int rows_, cols_;
