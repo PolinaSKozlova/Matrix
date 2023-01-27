@@ -12,7 +12,10 @@ REPORT=@mkdir -p report
 OS = $(shell uname)
 ifeq ("$(OS)", "Linux")
     TEST_FLAGS=-lgtest -pthread -lrt -lm -lsubunit
-    LEAKS_RUN=valgrind ./tests
+    LEAKS_RUN=valgrind --leak-check=full \
+           --show-leak-kinds=all \
+            --track-origins=yes \
+            --verbose \ ./tests
 else
     TEST_FLAGS=-lgtest -lm -pthread
     LEAKS_RUN=CK_FORK=no leaks -atExit -- ./tests
