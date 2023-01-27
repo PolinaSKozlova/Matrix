@@ -2,6 +2,8 @@
 
 #include "s21_matrix_oop.h"
 
+#define ACC 1e-7L
+
 TEST(constuctors, test_1) {
   S21Matrix A(4, 7);
   A.FillSimpleMatrix();
@@ -399,7 +401,7 @@ TEST(CalcComplements, test_4) {
   S21Matrix B(1, 1);
   A(0, 0) = 567;
   B = A.CalcComplements();
-  EXPECT_NEAR(A(0, 0), B(0, 0), NumAccuracy);
+  EXPECT_NEAR(A(0, 0), B(0, 0), ACC);
 }
 
 TEST(CalcComplements, test_5) {
@@ -407,21 +409,21 @@ TEST(CalcComplements, test_5) {
   S21Matrix B(1, 1);
   A(0, 0) = -8432;
   B = A.CalcComplements();
-  EXPECT_NEAR(A(0, 0), B(0, 0), NumAccuracy);
+  EXPECT_NEAR(A(0, 0), B(0, 0), ACC);
 }
 
 TEST(Determinant, test_1) {
   S21Matrix A(7, 7);
   A.FillMatrix();
   double d = A.Determinant();
-  EXPECT_NEAR(d, -14605.2, NumAccuracy);
+  EXPECT_NEAR(d, -14605.2, ACC);
 }
 
 TEST(Determinant, test_2) {
   S21Matrix A(5, 5);
   A.FillSimpleMatrix();
   double d = A.Determinant();
-  EXPECT_NEAR(d, 0, NumAccuracy);
+  EXPECT_NEAR(d, 0, ACC);
 }
 
 TEST(Determinant, test_3) {
@@ -432,7 +434,7 @@ TEST(Determinant, test_3) {
     }
   }
   double d = A.Determinant();
-  EXPECT_NEAR(d, 0, NumAccuracy);
+  EXPECT_NEAR(d, 0, ACC);
 }
 
 TEST(Determinant, test_4) {
@@ -444,21 +446,21 @@ TEST(Determinant, test_4) {
     }
   }
   double d = A.Determinant();
-  EXPECT_NEAR(d, -4684.2, NumAccuracy);
+  EXPECT_NEAR(d, -4684.2, ACC);
 }
 
 TEST(Determinant, test_5) {
   S21Matrix A(1, 1);
   A(0, 0) = -5432.3870;
   double d = A.Determinant();
-  EXPECT_NEAR(d, -5432.3870, NumAccuracy);
+  EXPECT_NEAR(d, -5432.3870, ACC);
 }
 
 TEST(Determinant, test_6) {
   S21Matrix A(1, 1);
   A(0, 0) = 156.37;
   double d = A.Determinant();
-  EXPECT_NEAR(d, 156.37, NumAccuracy);
+  EXPECT_NEAR(d, 156.37, ACC);
 }
 
 TEST(InverseMatrix, test_1) {
@@ -496,7 +498,7 @@ TEST(InverseMatrix, test_2) {
   S21Matrix B(1, 1);
   A(0, 0) = 984;
   B = A.InverseMatrix();
-  EXPECT_NEAR(1. / A(0, 0), B(0, 0), NumAccuracy);
+  EXPECT_NEAR(1. / A(0, 0), B(0, 0), ACC);
 }
 
 TEST(InverseMatrix, test_3) {
