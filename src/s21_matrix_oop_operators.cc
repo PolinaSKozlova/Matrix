@@ -68,7 +68,7 @@ bool S21Matrix::operator==(const S21Matrix& other) noexcept {
   if (rows_ == other.rows_ && cols_ == other.cols_) {
     for (int i = 0; i < rows_ && !status_code; i++) {
       for (int j = 0; j < cols_ && !status_code; j++) {
-        if (FABS(matrix_[i][j] - other.matrix_[i][j]) > 1e-7L) {
+        if (FABS(matrix_[i][j] - other.matrix_[i][j]) > NumAccuracy) {
           status_code = ERROR;
         }
       }

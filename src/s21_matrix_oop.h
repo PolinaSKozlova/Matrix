@@ -6,6 +6,8 @@
 
 enum STATUS { OK, ERROR };
 
+const double& NumAccuracy = 1e-7L;
+
 class S21Matrix {
  public:
   /* Базовый конструктор, инициализирующий матрицу некоторой
