@@ -30,13 +30,15 @@ s21_matrix_oop.a: $(OBJ_FILES)
 	ranlib $(PROJECT_NAME).a 
 
 test: clean test_matrix.cc $(SRCS)
-	$(CC) $(FLAGS) $(GCOV_FLAGS) $(SRCS) test_matrix.cc -o tests $(TEST_FLAGS)
+	$(CC) $(FLAGS) $(SRCS) test_matrix.cc -o tests $(TEST_FLAGS)
 	./tests
 
 %.o:%.cc
 	$(CC) -c $(FLAGS) $< -o $@ -I .
 
-gcov_report: clean test
+gcov_report: clean 
+	$(CC) $(FLAGS) $(GCOV_FLAGS) $(SRCS) test_matrix.cc -o tests $(TEST_FLAGS)		
+	./tests
 	lcov -t "gcov_report" -o test.info -c -d . --no-external
 	genhtml -o report test.info
 	open ./report/index.html
