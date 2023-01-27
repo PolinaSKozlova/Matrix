@@ -39,6 +39,44 @@ TEST(constuctors, test_5) {
   EXPECT_EQ(ptr, nullptr);
 }
 
+TEST(constuctors, test_6) {
+  S21Matrix A(4, 7);
+  int r = A.GetRows();
+  int c = A.GetCols();
+  EXPECT_EQ(r, 4);
+  EXPECT_EQ(c, 7);
+}
+
+TEST(constuctors, test_7) {
+  S21Matrix A(16, 9);
+  int r = A.GetRows();
+  int c = A.GetCols();
+  EXPECT_EQ(r, 16);
+  EXPECT_EQ(c, 9);
+}
+
+TEST(constuctors, test_8) {
+  S21Matrix A(16, 9);
+  A.SetRows(5);
+  A.SetCols(12);
+  int r = A.GetRows();
+  int c = A.GetCols();
+  EXPECT_EQ(r, 5);
+  EXPECT_EQ(c, 12);
+}
+
+TEST(constuctors, test_9) {
+  S21Matrix A(4, 12);
+  A.SetRows(8);
+  A.SetCols(7);
+  int r = A.GetRows();
+  int c = A.GetCols();
+  EXPECT_EQ(r, 8);
+  EXPECT_EQ(c, 7);
+}
+
+TEST(constuctors, test_10) { S21Matrix A(); }
+
 TEST(eqMatrix, test_1) {
   S21Matrix A(4, 7);
   S21Matrix B(4, 7);
