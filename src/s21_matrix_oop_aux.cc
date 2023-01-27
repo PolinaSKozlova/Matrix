@@ -8,7 +8,7 @@ void S21Matrix::MemoryAllocate() {
 }
 
 void S21Matrix::MemoryFree() {
-  for (int i = 0; i < this->rows_; i++) {
+  for (int i = 0; i < rows_; i++) {
     delete[] matrix_[i];
   }
   delete[] matrix_;
@@ -43,7 +43,7 @@ double S21Matrix::CountDeterm() {
   } else {
     for (int j = 0; j < cols_; j++) {
       S21Matrix minor(rows_ - 1, cols_ - 1);
-      dtrm += SignForOne(j) * this->matrix_[0][j] *
+      dtrm += SignForOne(j) * matrix_[0][j] *
               minor.MinorMatrix(0, j, *this).CountDeterm();
     }
   }

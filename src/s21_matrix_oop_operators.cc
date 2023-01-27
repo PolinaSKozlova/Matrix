@@ -7,7 +7,7 @@ S21Matrix S21Matrix::operator+(const S21Matrix& other) {
     S21Matrix tmp(rows_, cols_);
     for (int i = 0; i < tmp.rows_; i++) {
       for (int j = 0; j < tmp.cols_; j++) {
-        tmp.matrix_[i][j] = this->matrix_[i][j] + other.matrix_[i][j];
+        tmp.matrix_[i][j] = matrix_[i][j] + other.matrix_[i][j];
       }
     }
     return tmp;
@@ -17,11 +17,11 @@ S21Matrix S21Matrix::operator+(const S21Matrix& other) {
 }
 
 S21Matrix S21Matrix::operator-(const S21Matrix& other) {
-  if (this->rows_ == other.rows_ && this->cols_ == other.cols_) {
-    S21Matrix tmp(this->rows_, this->cols_);
-    for (int i = 0; i < this->rows_; i++) {
-      for (int j = 0; j < this->cols_; j++) {
-        tmp.matrix_[i][j] = this->matrix_[i][j] - other.matrix_[i][j];
+  if (rows_ == other.rows_ && cols_ == other.cols_) {
+    S21Matrix tmp(rows_, cols_);
+    for (int i = 0; i < rows_; i++) {
+      for (int j = 0; j < cols_; j++) {
+        tmp.matrix_[i][j] = matrix_[i][j] - other.matrix_[i][j];
       }
     }
     return tmp;
@@ -31,12 +31,12 @@ S21Matrix S21Matrix::operator-(const S21Matrix& other) {
 }
 
 S21Matrix S21Matrix::operator*(const S21Matrix& other) {
-  if (this->cols_ == other.rows_) {
-    S21Matrix tmp(this->rows_, other.cols_);
+  if (cols_ == other.rows_) {
+    S21Matrix tmp(rows_, other.cols_);
     for (int i = 0; i < tmp.rows_; i++) {
       for (int j = 0; j < tmp.cols_; j++) {
-        for (int k = 0; k < this->cols_; k++) {
-          tmp.matrix_[i][j] += this->matrix_[i][k] * other.matrix_[k][j];
+        for (int k = 0; k < cols_; k++) {
+          tmp.matrix_[i][j] += matrix_[i][k] * other.matrix_[k][j];
         }
       }
     }
@@ -48,10 +48,10 @@ S21Matrix S21Matrix::operator*(const S21Matrix& other) {
 }
 
 S21Matrix S21Matrix::operator*(const double& num) noexcept {
-  S21Matrix tmp(this->rows_, this->cols_);
-  for (int i = 0; i < this->rows_; i++) {
-    for (int j = 0; j < this->cols_; j++) {
-      tmp.matrix_[i][j] = this->matrix_[i][j] * num;
+  S21Matrix tmp(rows_, cols_);
+  for (int i = 0; i < rows_; i++) {
+    for (int j = 0; j < cols_; j++) {
+      tmp.matrix_[i][j] = matrix_[i][j] * num;
     }
   }
   return tmp;
@@ -65,10 +65,10 @@ S21Matrix operator*(const double& num, const S21Matrix& other) noexcept {
 
 bool S21Matrix::operator==(const S21Matrix& other) noexcept {
   int status_code = OK;
-  if (this->rows_ == other.rows_ && this->cols_ == other.cols_) {
-    for (int i = 0; i < this->rows_ && !status_code; i++) {
-      for (int j = 0; j < this->cols_ && !status_code; j++) {
-        if (FABS(this->matrix_[i][j] - other.matrix_[i][j]) > 1e-7L) {
+  if (rows_ == other.rows_ && cols_ == other.cols_) {
+    for (int i = 0; i < rows_ && !status_code; i++) {
+      for (int j = 0; j < cols_ && !status_code; j++) {
+        if (FABS(matrix_[i][j] - other.matrix_[i][j]) > 1e-7L) {
           status_code = ERROR;
         }
       }

@@ -26,7 +26,7 @@ S21Matrix S21Matrix::CalcComplements() {
   if (!(IsSquare())) {
     S21Matrix tmp(rows_, cols_);
     if (rows_ == 1) {
-      tmp.matrix_[0][0] = this->matrix_[0][0];
+      tmp.matrix_[0][0] = matrix_[0][0];
     } else {
       double dtrm = 0;
       S21Matrix minor(tmp.rows_ - 1, tmp.cols_ - 1);
