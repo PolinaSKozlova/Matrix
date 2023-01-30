@@ -2,10 +2,6 @@
 
 static double FABS(double num) { return (num < 0 ? -num : num); }
 
-int S21Matrix::IsSizeEqual(const S21Matrix& other) {
-  return (rows_ == other.rows_ && cols_ == other.cols_) ? OK : ERROR;
-}
-
 S21Matrix S21Matrix::operator+(const S21Matrix& other) {
   if (!(IsSizeEqual(other))) {
     S21Matrix result_matrix(rows_, cols_);
