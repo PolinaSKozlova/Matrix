@@ -1,6 +1,7 @@
 #цели all, clean, test, s21_matrix_oop.a
 
 CC=g++ -lstdc++ -std=c++17
+SANITIZE=-fsanitize=address -g3
 FLAGS=-Wall -Wextra -Werror 
 PROJECT_NAME=s21_matrix_oop
 SRCS=$(wildcard s21*.cc)
