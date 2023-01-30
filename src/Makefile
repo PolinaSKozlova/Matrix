@@ -22,16 +22,12 @@ else
     LEAKS_RUN=CK_FORK=no leaks -atExit -- ./tests
 endif
 
-
-run: clean run.cc $(SRCS) 
-	$(CC) $(FLAGS) $(SRCS) run.cc -o run -g
-	./run
-
 all: clean $(PROJECT_NAME).a test
 
 s21_matrix_oop.a: $(OBJ_FILES)
 	ar rcs $(PROJECT_NAME).a $(OBJ_FILES)
 	ranlib $(PROJECT_NAME).a 
+	rm -rf *.o
 
 test: clean test_matrix.cc $(SRCS)
 	$(CC) $(FLAGS) $(SRCS) test_matrix.cc -o tests $(TEST_FLAGS)
@@ -56,17 +52,15 @@ clean: clean_src
 .PHONY:
 	all, clean, test, gcov_report, s21_matrix_oop.a
 
-push:
-	git push origin develop
-
 leaks: test
 	$(LEAKS_RUN)
 	@$(MAKE) -f $(THIS_FILE) clean_src
 
 clang:
 	cp ../materials/linters/.clang-format .clang-format
-	clang-format -i s21*.cc  s21*.h
-	clang-format -n s21*.cc  s21*.h
+	clang-format -i s21*.cc test_matrix.cc s21*.h
+	clang-format -n s21*.cc test_matrix.cc s21*.h
+	rm -rf .clang-format
 
 cppcheck:
 	cppcheck --enable=all --suppress=missingIncludeSystem s21*.cc
