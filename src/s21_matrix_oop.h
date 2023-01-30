@@ -56,7 +56,6 @@ class S21Matrix {
                          const S21Matrix& other);
   friend double** PointerToMatrix(const S21Matrix& other);
 
-  void ShowMatrix();
   void FillMatrix();
   void FillSimpleMatrix();
 

@@ -16,6 +16,10 @@ void S21Matrix::MemoryFree() {
 
 int S21Matrix::IsMatrixSquare() { return (rows_ == cols_) ? OK : ERROR; }
 
+int S21Matrix::IsSizeEqual(const S21Matrix& other) {
+  return (rows_ == other.rows_ && cols_ == other.cols_) ? OK : ERROR;
+}
+
 int S21Matrix::SignForOne(const int& num) { return (num % 2 == 0) ? 1 : -1; }
 
 S21Matrix& S21Matrix::MinorMatrix(const int& rows, const int& cols,
@@ -75,17 +79,3 @@ double** PointerToMatrix(const S21Matrix& other) {
   double** pointer_to_matrix = other.matrix_;
   return pointer_to_matrix;
 }
-
-/************************************************/
-
-/*void S21Matrix::ShowMatrix() {
-  for (int i = 0; i < rows_; i++) {
-    for (int j = 0; j < cols_; j++) {
-      std::cout << matrix_[i][j] << " ";
-    }
-    std::cout << std::endl;
-  }
-  // std::cout << "call function ShowMatrix " << this->matrix_ << std::endl;
-}*/
-
-/************************************************/
