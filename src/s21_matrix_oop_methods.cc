@@ -28,11 +28,10 @@ S21Matrix S21Matrix::CalcComplements() {
     if (rows_ == 1) {
       result_matrix.matrix_[0][0] = matrix_[0][0];
     } else {
-      double determinant = 0.0;
       S21Matrix submatrix(result_matrix.rows_ - 1, result_matrix.cols_ - 1);
       for (int i = 0; i < result_matrix.rows_; ++i) {
         for (int j = 0; j < result_matrix.cols_; ++j) {
-          determinant = submatrix.MinorMatrix(i, j, *this).Determinant();
+          double determinant = submatrix.MinorMatrix(i, j, *this).Determinant();
           result_matrix.matrix_[i][j] = SignForOne(i + j) * determinant;
         }
       }
