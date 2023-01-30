@@ -2,19 +2,19 @@
 
 void S21Matrix::MemoryAllocate() {
   matrix_ = new double*[rows_];
-  for (int i = 0; i < rows_; i++) {
+  for (int i = 0; i < rows_; ++i) {
     matrix_[i] = new double[cols_]{};
   }
 }
 
 void S21Matrix::MemoryFree() {
-  for (int i = 0; i < rows_; i++) {
+  for (int i = 0; i < rows_; ++i) {
     delete[] matrix_[i];
   }
   delete[] matrix_;
 }
 
-int S21Matrix::IsSquare() { return (rows_ == cols_) ? OK : ERROR; }
+int S21Matrix::IsMatrixSquare() { return (rows_ == cols_) ? OK : ERROR; }
 
 int S21Matrix::SignForOne(const int& num) { return (num % 2 == 0) ? 1 : -1; }
 
@@ -36,18 +36,18 @@ S21Matrix& S21Matrix::MinorMatrix(const int& rows, const int& cols,
   return *this;
 }
 
-double S21Matrix::CountDeterm() {
-  double dtrm = 0;
+double S21Matrix::CountDeterminant() {
+  double determinant = 0;
   if (rows_ == 2) {
-    dtrm = DefineDeterminant();
+    determinant = DefineDeterminant();
   } else {
-    for (int j = 0; j < cols_; j++) {
+    for (int j = 0; j < cols_; ++j) {
       S21Matrix minor(rows_ - 1, cols_ - 1);
-      dtrm += SignForOne(j) * matrix_[0][j] *
-              minor.MinorMatrix(0, j, *this).CountDeterm();
+      determinant += SignForOne(j) * matrix_[0][j] *
+                     minor.MinorMatrix(0, j, *this).CountDeterminant();
     }
   }
-  return dtrm;
+  return determinant;
 }
 
 double S21Matrix::DefineDeterminant() {
@@ -71,9 +71,9 @@ void S21Matrix::FillSimpleMatrix() {
   }
 }
 
-double** PtrToMatrix(const S21Matrix& other) {
-  double** ptr = other.matrix_;
-  return ptr;
+double** PointerToMatrix(const S21Matrix& other) {
+  double** pointer_to_matrix = other.matrix_;
+  return pointer_to_matrix;
 }
 
 /************************************************/

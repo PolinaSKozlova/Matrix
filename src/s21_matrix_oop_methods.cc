@@ -13,61 +13,61 @@ void S21Matrix::MulNumber(const double& num) noexcept { *this *= num; }
 void S21Matrix::MulMatrix(const S21Matrix& other) { *this *= other; }
 
 S21Matrix S21Matrix::Transpose() noexcept {
-  S21Matrix tmp(cols_, rows_);
-  for (int i = 0; i < cols_; i++) {
-    for (int j = 0; j < rows_; j++) {
-      tmp.matrix_[i][j] = matrix_[j][i];
+  S21Matrix result_matrix(cols_, rows_);
+  for (int i = 0; i < cols_; ++i) {
+    for (int j = 0; j < rows_; ++j) {
+      result_matrix.matrix_[i][j] = matrix_[j][i];
     }
   }
-  return tmp;
+  return result_matrix;
 }
 
 S21Matrix S21Matrix::CalcComplements() {
-  if (!(IsSquare())) {
-    S21Matrix tmp(rows_, cols_);
+  if (!(IsMatrixSquare())) {
+    S21Matrix result_matrix(rows_, cols_);
     if (rows_ == 1) {
-      tmp.matrix_[0][0] = matrix_[0][0];
+      result_matrix.matrix_[0][0] = matrix_[0][0];
     } else {
-      double dtrm = 0;
-      S21Matrix minor(tmp.rows_ - 1, tmp.cols_ - 1);
-      for (int i = 0; i < tmp.rows_; i++) {
-        for (int j = 0; j < tmp.cols_; j++) {
-          dtrm = minor.MinorMatrix(i, j, *this).Determinant();
-          tmp.matrix_[i][j] = SignForOne(i + j) * dtrm;
+      double determinant = 0.0;
+      S21Matrix submatrix(result_matrix.rows_ - 1, result_matrix.cols_ - 1);
+      for (int i = 0; i < result_matrix.rows_; ++i) {
+        for (int j = 0; j < result_matrix.cols_; ++j) {
+          determinant = submatrix.MinorMatrix(i, j, *this).Determinant();
+          result_matrix.matrix_[i][j] = SignForOne(i + j) * determinant;
         }
       }
     }
-    return tmp;
+    return result_matrix;
   } else {
     throw std::runtime_error("Matrix is not square");
   }
 }
 
 double S21Matrix::Determinant() {
-  if (!(IsSquare())) {
-    double dtrm = 0;
+  if (!(IsMatrixSquare())) {
+    double determinant = 0.0;
     if (rows_ == 1) {
-      dtrm = matrix_[0][0];
+      determinant = matrix_[0][0];
     } else {
-      dtrm = CountDeterm();
+      determinant = CountDeterminant();
     }
-    return dtrm;
+    return determinant;
   } else {
     throw std::runtime_error("Matrix is not square");
   }
 }
 
 S21Matrix S21Matrix::InverseMatrix() {
-  double dtrm = Determinant();
-  if (!IsSquare() && dtrm != 0) {
-    S21Matrix tmp(*this);
-    if (tmp.rows_ == 1) {
-      tmp.matrix_[0][0] = 1. / dtrm;
+  double determinant = Determinant();
+  if (!IsMatrixSquare() && determinant != 0) {
+    S21Matrix result_matrix(*this);
+    if (rows_ == 1) {
+      result_matrix.matrix_[0][0] = 1.0 / determinant;
     } else {
-      tmp = tmp.CalcComplements().Transpose();
-      tmp.MulNumber(1. / dtrm);
+      result_matrix = result_matrix.CalcComplements().Transpose();
+      result_matrix.MulNumber(1.0 / determinant);
     }
-    return tmp;
+    return result_matrix;
   } else {
     throw std::runtime_error(
         "Matrix is not square or determinant is equal to zero");

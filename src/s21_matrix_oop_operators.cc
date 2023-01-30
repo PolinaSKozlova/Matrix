@@ -2,29 +2,33 @@
 
 static double FABS(double num) { return (num < 0 ? -num : num); }
 
+int S21Matrix::IsSizeEqual(const S21Matrix& other) {
+  return (rows_ == other.rows_ && cols_ == other.cols_) ? OK : ERROR;
+}
+
 S21Matrix S21Matrix::operator+(const S21Matrix& other) {
-  if (rows_ == other.rows_ && cols_ == other.cols_) {
-    S21Matrix tmp(rows_, cols_);
-    for (int i = 0; i < tmp.rows_; i++) {
-      for (int j = 0; j < tmp.cols_; j++) {
-        tmp.matrix_[i][j] = matrix_[i][j] + other.matrix_[i][j];
+  if (!(IsSizeEqual(other))) {
+    S21Matrix result_matrix(rows_, cols_);
+    for (int i = 0; i < result_matrix.rows_; ++i) {
+      for (int j = 0; j < result_matrix.cols_; ++j) {
+        result_matrix.matrix_[i][j] = matrix_[i][j] + other.matrix_[i][j];
       }
     }
-    return tmp;
+    return result_matrix;
   } else {
     throw std::runtime_error("Different size of matrices");
   }
 }
 
 S21Matrix S21Matrix::operator-(const S21Matrix& other) {
-  if (rows_ == other.rows_ && cols_ == other.cols_) {
-    S21Matrix tmp(rows_, cols_);
-    for (int i = 0; i < rows_; i++) {
-      for (int j = 0; j < cols_; j++) {
-        tmp.matrix_[i][j] = matrix_[i][j] - other.matrix_[i][j];
+  if (!(IsSizeEqual(other))) {
+    S21Matrix result_matrix(rows_, cols_);
+    for (int i = 0; i < rows_; ++i) {
+      for (int j = 0; j < cols_; ++j) {
+        result_matrix.matrix_[i][j] = matrix_[i][j] - other.matrix_[i][j];
       }
     }
-    return tmp;
+    return result_matrix;
   } else {
     throw std::runtime_error("Different size of matrices");
   }
@@ -32,15 +36,15 @@ S21Matrix S21Matrix::operator-(const S21Matrix& other) {
 
 S21Matrix S21Matrix::operator*(const S21Matrix& other) {
   if (cols_ == other.rows_) {
-    S21Matrix tmp(rows_, other.cols_);
-    for (int i = 0; i < tmp.rows_; i++) {
-      for (int j = 0; j < tmp.cols_; j++) {
-        for (int k = 0; k < cols_; k++) {
-          tmp.matrix_[i][j] += matrix_[i][k] * other.matrix_[k][j];
+    S21Matrix result_matrix(rows_, other.cols_);
+    for (int i = 0; i < result_matrix.rows_; ++i) {
+      for (int j = 0; j < result_matrix.cols_; ++j) {
+        for (int k = 0; k < cols_; ++k) {
+          result_matrix.matrix_[i][j] += matrix_[i][k] * other.matrix_[k][j];
         }
       }
     }
-    return tmp;
+    return result_matrix;
   } else {
     throw std::runtime_error(
         "The rows of first matrix are not equal to the cols of second matrix");
@@ -48,27 +52,27 @@ S21Matrix S21Matrix::operator*(const S21Matrix& other) {
 }
 
 S21Matrix S21Matrix::operator*(const double& num) noexcept {
-  S21Matrix tmp(rows_, cols_);
-  for (int i = 0; i < rows_; i++) {
-    for (int j = 0; j < cols_; j++) {
-      tmp.matrix_[i][j] = matrix_[i][j] * num;
+  S21Matrix result_matrix(rows_, cols_);
+  for (int i = 0; i < rows_; ++i) {
+    for (int j = 0; j < cols_; ++j) {
+      result_matrix.matrix_[i][j] = matrix_[i][j] * num;
     }
   }
-  return tmp;
+  return result_matrix;
 }
 
 S21Matrix operator*(const double& num, const S21Matrix& other) noexcept {
-  S21Matrix tmp(other);
-  tmp *= num;
-  return tmp;
+  S21Matrix result_matrix(other);
+  result_matrix *= num;
+  return result_matrix;
 }
 
 bool S21Matrix::operator==(const S21Matrix& other) noexcept {
   int status_code = OK;
-  if (rows_ == other.rows_ && cols_ == other.cols_) {
-    for (int i = 0; i < rows_ && !status_code; i++) {
-      for (int j = 0; j < cols_ && !status_code; j++) {
-        if (FABS(matrix_[i][j] - other.matrix_[i][j]) > NumAccuracy) {
+  if (!(IsSizeEqual(other))) {
+    for (int i = 0; i < rows_ && !status_code; ++i) {
+      for (int j = 0; j < cols_ && !status_code; ++j) {
+        if (FABS(matrix_[i][j] - other.matrix_[i][j]) > kNumAccuracy) {
           status_code = ERROR;
         }
       }
@@ -86,8 +90,8 @@ S21Matrix& S21Matrix::operator=(const S21Matrix& other) noexcept {
   rows_ = other.rows_;
   cols_ = other.cols_;
   MemoryAllocate();
-  for (int i = 0; i < other.rows_; i++) {
-    for (int j = 0; j < other.cols_; j++) {
+  for (int i = 0; i < other.rows_; ++i) {
+    for (int j = 0; j < other.cols_; ++j) {
       matrix_[i][j] = other.matrix_[i][j];
     }
   }

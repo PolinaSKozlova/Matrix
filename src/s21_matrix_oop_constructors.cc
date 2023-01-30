@@ -12,8 +12,8 @@ S21Matrix::S21Matrix(int r, int c) : rows_(r), cols_(c) {
 S21Matrix::S21Matrix(const S21Matrix& other)
     : rows_(other.rows_), cols_(other.cols_) {
   MemoryAllocate();
-  for (int i = 0; i < rows_; i++) {
-    for (int j = 0; j < cols_; j++) {
+  for (int i = 0; i < rows_; ++i) {
+    for (int j = 0; j < cols_; ++j) {
       matrix_[i][j] = other.matrix_[i][j];
     }
   }
@@ -38,28 +38,28 @@ int S21Matrix::GetRows() { return rows_; };
 
 int S21Matrix::GetCols() { return cols_; }
 
-void S21Matrix::SetRows(const int& r) {
-  assert(r > 0);
-  S21Matrix tmp(r, cols_);
-  for (int i = 0; i < std::min(rows_, r); i++) {
-    for (int j = 0; j < tmp.cols_; j++) {
-      tmp.matrix_[i][j] = matrix_[i][j];
+void S21Matrix::SetRows(const int& new_rows) {
+  assert(new_rows > 0);
+  S21Matrix temporary_matrix(new_rows, cols_);
+  for (int i = 0; i < std::min(rows_, new_rows); ++i) {
+    for (int j = 0; j < temporary_matrix.cols_; ++j) {
+      temporary_matrix.matrix_[i][j] = matrix_[i][j];
     }
   }
-  *this = tmp;
-  rows_ = r;
+  *this = temporary_matrix;
+  rows_ = new_rows;
 }
 
-void S21Matrix::SetCols(const int& c) {
-  assert(c > 0);
-  S21Matrix tmp(rows_, c);
-  for (int i = 0; i < rows_; i++) {
-    for (int j = 0; j < std::min(cols_, c); j++) {
+void S21Matrix::SetCols(const int& new_cols) {
+  assert(new_cols > 0);
+  S21Matrix temporary_matrix(rows_, new_cols);
+  for (int i = 0; i < rows_; ++i) {
+    for (int j = 0; j < std::min(cols_, new_cols); ++j) {
       if (j < cols_) {
-        tmp.matrix_[i][j] = matrix_[i][j];
+        temporary_matrix.matrix_[i][j] = matrix_[i][j];
       }
     }
   }
-  *this = tmp;
-  cols_ = c;
+  *this = temporary_matrix;
+  cols_ = new_cols;
 }
