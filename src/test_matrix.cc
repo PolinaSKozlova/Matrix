@@ -2,7 +2,7 @@
 
 #include "s21_matrix_oop.h"
 
-#define ACC 1e-7L
+#define ACCURACY 1.0e-7L
 
 TEST(constuctors, test_1) {
   S21Matrix A(4, 7);
@@ -30,14 +30,14 @@ TEST(constuctors, test_3) {
 TEST(constuctors, test_4) {
   S21Matrix A(4, 7);
   S21Matrix B(std::move(A));
-  double **ptr = PtrToMatrix(A);
+  double **ptr = PointerToMatrix(A);
   EXPECT_EQ(ptr, nullptr);
 }
 
 TEST(constuctors, test_5) {
   S21Matrix A(4, 7);
   S21Matrix B(std::move(A));
-  double **ptr = PtrToMatrix(A);
+  double **ptr = PointerToMatrix(A);
   EXPECT_EQ(ptr, nullptr);
 }
 
@@ -401,7 +401,7 @@ TEST(CalcComplements, test_4) {
   S21Matrix B(1, 1);
   A(0, 0) = 567;
   B = A.CalcComplements();
-  EXPECT_NEAR(A(0, 0), B(0, 0), ACC);
+  EXPECT_NEAR(A(0, 0), B(0, 0), ACCURACY);
 }
 
 TEST(CalcComplements, test_5) {
@@ -409,21 +409,21 @@ TEST(CalcComplements, test_5) {
   S21Matrix B(1, 1);
   A(0, 0) = -8432;
   B = A.CalcComplements();
-  EXPECT_NEAR(A(0, 0), B(0, 0), ACC);
+  EXPECT_NEAR(A(0, 0), B(0, 0), ACCURACY);
 }
 
 TEST(Determinant, test_1) {
   S21Matrix A(7, 7);
   A.FillMatrix();
   double d = A.Determinant();
-  EXPECT_NEAR(d, -14605.2, ACC);
+  EXPECT_NEAR(d, -14605.2, ACCURACY);
 }
 
 TEST(Determinant, test_2) {
   S21Matrix A(5, 5);
   A.FillSimpleMatrix();
   double d = A.Determinant();
-  EXPECT_NEAR(d, 0, ACC);
+  EXPECT_NEAR(d, 0, ACCURACY);
 }
 
 TEST(Determinant, test_3) {
@@ -434,7 +434,7 @@ TEST(Determinant, test_3) {
     }
   }
   double d = A.Determinant();
-  EXPECT_NEAR(d, 0, ACC);
+  EXPECT_NEAR(d, 0, ACCURACY);
 }
 
 TEST(Determinant, test_4) {
@@ -446,21 +446,21 @@ TEST(Determinant, test_4) {
     }
   }
   double d = A.Determinant();
-  EXPECT_NEAR(d, -4684.2, ACC);
+  EXPECT_NEAR(d, -4684.2, ACCURACY);
 }
 
 TEST(Determinant, test_5) {
   S21Matrix A(1, 1);
   A(0, 0) = -5432.3870;
   double d = A.Determinant();
-  EXPECT_NEAR(d, -5432.3870, ACC);
+  EXPECT_NEAR(d, -5432.3870, ACCURACY);
 }
 
 TEST(Determinant, test_6) {
   S21Matrix A(1, 1);
   A(0, 0) = 156.37;
   double d = A.Determinant();
-  EXPECT_NEAR(d, 156.37, ACC);
+  EXPECT_NEAR(d, 156.37, ACCURACY);
 }
 
 TEST(InverseMatrix, test_1) {
@@ -498,7 +498,7 @@ TEST(InverseMatrix, test_2) {
   S21Matrix B(1, 1);
   A(0, 0) = 984;
   B = A.InverseMatrix();
-  EXPECT_NEAR(1. / A(0, 0), B(0, 0), ACC);
+  EXPECT_NEAR(1. / A(0, 0), B(0, 0), ACCURACY);
 }
 
 TEST(InverseMatrix, test_3) {
