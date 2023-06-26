@@ -1,69 +1,66 @@
-#ifndef SRC_S21_MATRIX_OOP_H_
-#define SRC_S21_MATRIX_OOP_H_
+#ifndef MATRIXPLUS_S21_MATRIX_OOP_H_
+#define MATRIXPLUS_S21_MATRIX_OOP_H_
 
 #include <exception>
 #include <iostream>
 
+constexpr static double kNumAccuracy = 1.0e-7L;
+
 enum RETURN_STATUS { OK, ERROR };
 
-class S21Matrix {
+class Matrix {
  public:
-  constexpr static double kNumAccuracy = 1.0e-7L;
+  Matrix();
+  explicit Matrix(int r, int c);
+  Matrix(const Matrix& other);
+  Matrix(Matrix&& other);
 
-  S21Matrix();
-  S21Matrix(int r, int c);
-  S21Matrix(const S21Matrix& other);
-  S21Matrix(S21Matrix&& other);
+  Matrix& operator=(const Matrix& other) noexcept;
+  Matrix& operator+=(const Matrix& other);
+  Matrix& operator-=(const Matrix& other);
+  Matrix& operator*=(const Matrix& other);
+  Matrix& operator*=(const double& num) noexcept;
+  Matrix operator+(const Matrix& other) const;
+  Matrix operator-(const Matrix& other) const;
+  Matrix operator*(const Matrix& other) const;
+  Matrix operator*(const double& num) const noexcept;
+  bool operator==(const Matrix& other) const noexcept;
 
-  S21Matrix& operator=(const S21Matrix& other) noexcept;
-  S21Matrix& operator+=(const S21Matrix& other);
-  S21Matrix& operator-=(const S21Matrix& other);
-  S21Matrix& operator*=(const S21Matrix& other);
-  S21Matrix& operator*=(const double& num) noexcept;
+  ~Matrix();
 
-  ~S21Matrix();
-
-  int GetRows();
-  int GetCols();
+  int GetRows() const noexcept;
+  int GetCols() const noexcept;
   void SetRows(const int& r);
   void SetCols(const int& c);
-  S21Matrix operator+(const S21Matrix& other);
-  S21Matrix operator-(const S21Matrix& other);
-  S21Matrix operator*(const S21Matrix& other);
-  S21Matrix operator*(const double& num) noexcept;
-  bool operator==(const S21Matrix& other) noexcept;
   /* перегрузка оператора [] */
   double& operator()(const int& i, const int& j);
-  bool EqMatrix(const S21Matrix& other) noexcept;
-  void SumMatrix(const S21Matrix& other);
-  void SubMatrix(const S21Matrix& other);
+  bool EqMatrix(const Matrix& other) const noexcept;
+  void SumMatrix(const Matrix& other);
+  void SubMatrix(const Matrix& other);
   void MulNumber(const double& num) noexcept;
-  void MulMatrix(const S21Matrix& other);
-  S21Matrix Transpose() noexcept;
-  S21Matrix CalcComplements();
-  double Determinant();
-  S21Matrix InverseMatrix();
+  void MulMatrix(const Matrix& other);
+  Matrix Transpose() const noexcept;
+  Matrix CalcComplements() const;
+  double Determinant() const;
+  Matrix InverseMatrix() const;
 
-  /* вспомогательные функции для основных методов и операторов */
-  void MemoryAllocate();
-  void MemoryFree();
-  int IsMatrixSquare();
-  int IsSizeEqual(const S21Matrix& other);
-  int SignForOne(const int& num);
-  double CountDeterminant();
-  double DefineDeterminant();
-  S21Matrix& MinorMatrix(const int& rows, const int& cols,
-                         const S21Matrix& other);
-  friend double** PointerToMatrix(const S21Matrix& other);
-
+  friend double** PointerToMatrix(const Matrix& other);
   void FillMatrix();
   void FillSimpleMatrix();
 
  private:
+  void MemoryAllocate();
+  void MemoryFree();
+  int IsMatrixSquare() const noexcept;
+  int IsSizeEqual(const Matrix& other) const noexcept;
+  int SignForOne(const int& num) const noexcept;
+  double CountDeterminant() const;
+  double DefineDeterminant() const;
+  Matrix& MinorMatrix(const int& rows, const int& cols, const Matrix& other);
   int rows_, cols_;
   double** matrix_;
 };
 
-S21Matrix operator*(const double& num, const S21Matrix& other) noexcept;
+Matrix operator*(const double& num, const Matrix& other) noexcept;
 
-#endif  // SRC_S21_MATRIX_OOP_H_
+#endif  // MATRIXPLUS_S21_MATRIX_OOP_H_

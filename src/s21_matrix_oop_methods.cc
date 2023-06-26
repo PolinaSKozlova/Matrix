@@ -1,19 +1,19 @@
 #include "s21_matrix_oop.h"
 
-bool S21Matrix::EqMatrix(const S21Matrix& other) noexcept {
+bool Matrix::EqMatrix(const Matrix& other) const noexcept {
   return !(*this == other) ? OK : ERROR;
 }
 
-void S21Matrix::SumMatrix(const S21Matrix& other) { *this += other; }
+void Matrix::SumMatrix(const Matrix& other) { *this += other; }
 
-void S21Matrix::SubMatrix(const S21Matrix& other) { *this -= other; }
+void Matrix::SubMatrix(const Matrix& other) { *this -= other; }
 
-void S21Matrix::MulNumber(const double& num) noexcept { *this *= num; }
+void Matrix::MulNumber(const double& num) noexcept { *this *= num; }
 
-void S21Matrix::MulMatrix(const S21Matrix& other) { *this *= other; }
+void Matrix::MulMatrix(const Matrix& other) { *this *= other; }
 
-S21Matrix S21Matrix::Transpose() noexcept {
-  S21Matrix result_matrix(cols_, rows_);
+Matrix Matrix::Transpose() const noexcept {
+  Matrix result_matrix(cols_, rows_);
   for (int i = 0; i < cols_; ++i) {
     for (int j = 0; j < rows_; ++j) {
       result_matrix.matrix_[i][j] = matrix_[j][i];
@@ -22,13 +22,13 @@ S21Matrix S21Matrix::Transpose() noexcept {
   return result_matrix;
 }
 
-S21Matrix S21Matrix::CalcComplements() {
+Matrix Matrix::CalcComplements() const {
   if (!(IsMatrixSquare())) {
-    S21Matrix result_matrix(rows_, cols_);
+    Matrix result_matrix(rows_, cols_);
     if (rows_ == 1) {
       result_matrix.matrix_[0][0] = matrix_[0][0];
     } else {
-      S21Matrix submatrix(result_matrix.rows_ - 1, result_matrix.cols_ - 1);
+      Matrix submatrix(result_matrix.rows_ - 1, result_matrix.cols_ - 1);
       for (int i = 0; i < result_matrix.rows_; ++i) {
         for (int j = 0; j < result_matrix.cols_; ++j) {
           double determinant = submatrix.MinorMatrix(i, j, *this).Determinant();
@@ -42,7 +42,7 @@ S21Matrix S21Matrix::CalcComplements() {
   }
 }
 
-double S21Matrix::Determinant() {
+double Matrix::Determinant() const {
   if (!(IsMatrixSquare())) {
     double determinant = 0.0;
     if (rows_ == 1) {
@@ -56,10 +56,10 @@ double S21Matrix::Determinant() {
   }
 }
 
-S21Matrix S21Matrix::InverseMatrix() {
+Matrix Matrix::InverseMatrix() const {
   double determinant = Determinant();
   if (!IsMatrixSquare() && determinant != 0) {
-    S21Matrix result_matrix(*this);
+    Matrix result_matrix(*this);
     if (rows_ == 1) {
       result_matrix.matrix_[0][0] = 1.0 / determinant;
     } else {

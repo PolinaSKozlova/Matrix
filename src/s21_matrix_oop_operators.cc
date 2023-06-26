@@ -2,9 +2,9 @@
 
 static double FABS(double num) { return (num < 0 ? -num : num); }
 
-S21Matrix S21Matrix::operator+(const S21Matrix& other) {
+Matrix Matrix::operator+(const Matrix& other) const {
   if (!(IsSizeEqual(other))) {
-    S21Matrix result_matrix(rows_, cols_);
+    Matrix result_matrix(rows_, cols_);
     for (int i = 0; i < result_matrix.rows_; ++i) {
       for (int j = 0; j < result_matrix.cols_; ++j) {
         result_matrix.matrix_[i][j] = matrix_[i][j] + other.matrix_[i][j];
@@ -16,9 +16,9 @@ S21Matrix S21Matrix::operator+(const S21Matrix& other) {
   }
 }
 
-S21Matrix S21Matrix::operator-(const S21Matrix& other) {
+Matrix Matrix::operator-(const Matrix& other) const {
   if (!(IsSizeEqual(other))) {
-    S21Matrix result_matrix(rows_, cols_);
+    Matrix result_matrix(rows_, cols_);
     for (int i = 0; i < rows_; ++i) {
       for (int j = 0; j < cols_; ++j) {
         result_matrix.matrix_[i][j] = matrix_[i][j] - other.matrix_[i][j];
@@ -30,9 +30,9 @@ S21Matrix S21Matrix::operator-(const S21Matrix& other) {
   }
 }
 
-S21Matrix S21Matrix::operator*(const S21Matrix& other) {
+Matrix Matrix::operator*(const Matrix& other) const {
   if (cols_ == other.rows_) {
-    S21Matrix result_matrix(rows_, other.cols_);
+    Matrix result_matrix(rows_, other.cols_);
     for (int i = 0; i < result_matrix.rows_; ++i) {
       for (int j = 0; j < result_matrix.cols_; ++j) {
         for (int k = 0; k < cols_; ++k) {
@@ -47,8 +47,8 @@ S21Matrix S21Matrix::operator*(const S21Matrix& other) {
   }
 }
 
-S21Matrix S21Matrix::operator*(const double& num) noexcept {
-  S21Matrix result_matrix(rows_, cols_);
+Matrix Matrix::operator*(const double& num) const noexcept {
+  Matrix result_matrix(rows_, cols_);
   for (int i = 0; i < rows_; ++i) {
     for (int j = 0; j < cols_; ++j) {
       result_matrix.matrix_[i][j] = matrix_[i][j] * num;
@@ -57,13 +57,13 @@ S21Matrix S21Matrix::operator*(const double& num) noexcept {
   return result_matrix;
 }
 
-S21Matrix operator*(const double& num, const S21Matrix& other) noexcept {
-  S21Matrix result_matrix(other);
+Matrix operator*(const double& num, const Matrix& other) noexcept {
+  Matrix result_matrix(other);
   result_matrix *= num;
   return result_matrix;
 }
 
-bool S21Matrix::operator==(const S21Matrix& other) noexcept {
+bool Matrix::operator==(const Matrix& other) const noexcept {
   int status_code = OK;
   if (!(IsSizeEqual(other))) {
     for (int i = 0; i < rows_ && !status_code; ++i) {
@@ -79,7 +79,7 @@ bool S21Matrix::operator==(const S21Matrix& other) noexcept {
   return status_code;
 }
 
-S21Matrix& S21Matrix::operator=(const S21Matrix& other) noexcept {
+Matrix& Matrix::operator=(const Matrix& other) noexcept {
   if (matrix_ != nullptr) {
     MemoryFree();
   }
@@ -94,23 +94,23 @@ S21Matrix& S21Matrix::operator=(const S21Matrix& other) noexcept {
   return *this;
 }
 
-S21Matrix& S21Matrix::operator+=(const S21Matrix& other) {
+Matrix& Matrix::operator+=(const Matrix& other) {
   return (*this = *this + other);
 }
 
-S21Matrix& S21Matrix::operator-=(const S21Matrix& other) {
+Matrix& Matrix::operator-=(const Matrix& other) {
   return (*this = *this - other);
 }
 
-S21Matrix& S21Matrix::operator*=(const S21Matrix& other) {
+Matrix& Matrix::operator*=(const Matrix& other) {
   return (*this = *this * other);
 }
 
-S21Matrix& S21Matrix::operator*=(const double& num) noexcept {
+Matrix& Matrix::operator*=(const double& num) noexcept {
   return (*this = *this * num);
 }
 
-double& S21Matrix::operator()(const int& i, const int& j) {
+double& Matrix::operator()(const int& i, const int& j) {
   if (i > rows_ || i < 0 || j > cols_ || j < 0) {
     throw std::runtime_error("Out of range");
   } else {
