@@ -1,5 +1,5 @@
-#ifndef MATRIXPLUS_S21_MATRIX_OOP_H_
-#define MATRIXPLUS_S21_MATRIX_OOP_H_
+#ifndef MATRIXPLUS_MATRIX_OOP_H_
+#define MATRIXPLUS_MATRIX_OOP_H_
 
 #include <exception>
 #include <iostream>

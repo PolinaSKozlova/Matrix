@@ -1,4 +1,4 @@
-#include "s21_matrix_oop.h"
+#include "matrix_oop.h"
 
 bool Matrix::EqMatrix(const Matrix& other) const noexcept {
   return !(*this == other) ? OK : ERROR;

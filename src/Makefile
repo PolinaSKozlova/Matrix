@@ -1,10 +1,8 @@
-#цели all, clean, test, s21_matrix_oop.a
-
 CC=g++ -lstdc++ -std=c++17
 SANITIZE=-fsanitize=address -g3
 FLAGS=-Wall -Wextra -Werror 
-PROJECT_NAME=s21_matrix_oop
-SRCS=$(wildcard s21*.cc)
+PROJECT_NAME=matrix_oop
+SRCS=$(wildcard matrix*.cc)
 OBJ_FILES=$(patsubst %.cc,%.o,$(SRCS))
 GCOV_FLAGS=-fprofile-arcs -ftest-coverage
 THIS_FILE:= $(lastword $(MAKEFILE_LIST))
@@ -47,10 +45,10 @@ clean_src:
 	rm -rf *.gcda *.gcno *.gcov test.info report
 
 clean: clean_src
-	rm -rf s21_matrix_oop.a run run.dSYM .clang-format tests *.o
+	rm -rf matrix_oop.a run run.dSYM .clang-format tests *.o
 
 .PHONY:
-	all, clean, test, gcov_report, s21_matrix_oop.a
+	all, clean, test, gcov_report, matrix_oop.a
 
 leaks: test
 	$(LEAKS_RUN)
@@ -58,9 +56,9 @@ leaks: test
 
 clang:
 	cp ../materials/linters/.clang-format .clang-format
-	clang-format -i s21*.cc test_matrix.cc s21*.h
-	clang-format -n s21*.cc test_matrix.cc s21*.h
+	clang-format -i matrix*.cc test_matrix.cc matrix*.h
+	clang-format -n matrix*.cc test_matrix.cc matrix*.h
 	rm -rf .clang-format
 
 cppcheck:
-	cppcheck --enable=all --suppress=missingIncludeSystem s21*.cc
+	cppcheck --enable=all --suppress=missingIncludeSystem matrix*.cc

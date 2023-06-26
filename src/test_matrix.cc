@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "s21_matrix_oop.h"
+#include "matrix_oop.h"
 
 #define ACCURACY 1.0e-7L
 

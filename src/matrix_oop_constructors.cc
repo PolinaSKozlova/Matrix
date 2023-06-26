@@ -1,4 +1,4 @@
-#include "s21_matrix_oop.h"
+#include "matrix_oop.h"
 
 Matrix::Matrix() : rows_(0), cols_(0), matrix_(nullptr) {}
 

@@ -1,4 +1,4 @@
-#include "s21_matrix_oop.h"
+#include "matrix_oop.h"
 
 static double FABS(double num) { return (num < 0 ? -num : num); }
 
